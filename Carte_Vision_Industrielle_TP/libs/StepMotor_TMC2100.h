@@ -46,9 +46,9 @@ class StepMotor_TMC2100{
         DigitalOut  *__en; 
         DigitalOut  *__dir;
         PwmOut      *__step;
-        DigitalOut  *__cfg1;
-        DigitalOut  *__cfg2;
-        DigitalOut  *__cfg3;
+        DigitalInOut  *__cfg1;
+        DigitalInOut  *__cfg2;
+        DigitalInOut  *__cfg3;
 
     public:
         /**
@@ -85,6 +85,14 @@ class StepMotor_TMC2100{
         * @brief Stop the motor.
         */
         void stop(void);
+
+        /**
+        * @brief Setup the configuration pins and force in 1/4 step rotation.
+        * @param cfg1 Pointer to the CFG1 pins (DigitalInOut - 3-states pin)
+        * @param cfg2 Pointer to the CFG1 pins (DigitalInOut - 3-states pin)
+        * @param cfg3 Pointer to the CFG1 pins (DigitalInOut - 3-states pin)
+        */
+        void setupConfigPins(DigitalInOut *cfg1, DigitalInOut *cfg2, DigitalInOut *cfg3);
 
 };
 

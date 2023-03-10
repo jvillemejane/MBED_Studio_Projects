@@ -26,8 +26,9 @@ DigitalOut      en(PB_13);
 DigitalOut      dir(PB_3);
 PwmOut          step(PA_10);
 StepMotor_TMC2100   my_motor(&en, &dir, &step, false);
-DigitalOut      M1_CFG1(PB_14);
-DigitalOut      M1_CFG2(PB_15);
+DigitalInOut    M1_CFG1(PB_14);
+DigitalInOut    M1_CFG2(PB_15);
+DigitalInOut    M1_CFG3(PB_1);
 
 int main()
 {
@@ -35,8 +36,15 @@ int main()
     my_pc.write(charStr, strlen(charStr));
 
     // 1/4 step
+    my_motor.setupConfigPins(&M1_CFG1, &M1_CFG2, &M1_CFG3);
+    /*
+    M1_CFG1.output();
     M1_CFG1 = 0;
+    M1_CFG2.output();
     M1_CFG2 = 1;
+    // To be in the third state (high impedance - no voltage)
+    M1_CFG3.input();
+    */
 
     while (true)
     {

@@ -46,10 +46,10 @@
     {
         "module": "libs\\StepMotor_TMC2100.o",
         "size": {
-            ".text": 222,
+            ".text": 300,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 0,
+            ".text-delta": 78,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -57,10 +57,10 @@
     {
         "module": "main.o",
         "size": {
-            ".text": 308,
+            ".text": 344,
             ".data": 0,
-            ".bss": 540,
-            ".text-delta": 0,
+            ".bss": 568,
+            ".text-delta": -16,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -68,7 +68,7 @@
     {
         "module": "mbed-os\\drivers",
         "size": {
-            ".text": 2020,
+            ".text": 2068,
             ".data": 0,
             ".bss": 0,
             ".text-delta": 0,
@@ -79,7 +79,7 @@
     {
         "module": "mbed-os\\hal",
         "size": {
-            ".text": 1352,
+            ".text": 1396,
             ".data": 8,
             ".bss": 114,
             ".text-delta": 0,
@@ -111,10 +111,10 @@
     },
     {
         "summary": {
-            "static_ram": 6521,
+            "static_ram": 6549,
             "static_ram_delta": 0,
-            "total_flash": 25347,
-            "total_flash_delta": 0
+            "total_flash": 25553,
+            "total_flash_delta": 62
         }
     }
 ]

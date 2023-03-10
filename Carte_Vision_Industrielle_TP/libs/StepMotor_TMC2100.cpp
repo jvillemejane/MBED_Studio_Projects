@@ -19,15 +19,15 @@
     this->_enable = false;
     /* Initialisation of enable output */
     if (en){ delete __en; }
-    __en=en;
+    this->__en = en;
     this->__en->write(1);
     /* Initialisation of direction output */
     if (dir){ delete __dir; }
-    __dir=dir;
+    this->__dir = dir;
     this->__dir->write(0);
     /* Initialisation of step output */
     if (step){ delete __step; }
-    __step=step;
+    this->__step = step;
     this->__step->period(1);
     this->__step->write(0);
     this->_notConfig = config;
@@ -64,4 +64,21 @@ void StepMotor_TMC2100::goBackward(float stepsPerSeconds){
 void StepMotor_TMC2100::stop(void){
     this->_enable = false;
     this->updateMotorState();  
+}
+
+void StepMotor_TMC2100::setupConfigPins(DigitalInOut *cfg1, DigitalInOut *cfg2, DigitalInOut *cfg3){
+    /* Initialisation of cfg1 pin */
+    if (cfg1){ delete __cfg1; }
+    this->__cfg1 = cfg1; 
+    this->__cfg1->output(); 
+    this->__cfg1->write(0); 
+    /* Initialisation of cfg2 pin */
+    if (cfg2){ delete __cfg2; }
+    this->__cfg2 = cfg2; 
+    this->__cfg2->output();
+    this->__cfg2->write(1);   
+    /* Initialisation of cfg3 pin */
+    if (cfg3){ delete __cfg3; }
+    this->__cfg3 = cfg3; 
+    this->__cfg3->input();
 }
