@@ -5,7 +5,7 @@
             ".text": 44,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 44,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -16,9 +16,9 @@
             ".text": 620,
             ".data": 8,
             ".bss": 40,
-            ".text-delta": 620,
-            ".data-delta": 8,
-            ".bss-delta": 40
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
         }
     },
     {
@@ -27,7 +27,7 @@
             ".text": 608,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 608,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -38,9 +38,9 @@
             ".text": 32,
             ".data": 0,
             ".bss": 4352,
-            ".text-delta": 32,
+            ".text-delta": 0,
             ".data-delta": 0,
-            ".bss-delta": 4352
+            ".bss-delta": 0
         }
     },
     {
@@ -49,7 +49,7 @@
             ".text": 222,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 222,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -60,9 +60,9 @@
             ".text": 308,
             ".data": 0,
             ".bss": 540,
-            ".text-delta": 308,
+            ".text-delta": 0,
             ".data-delta": 0,
-            ".bss-delta": 540
+            ".bss-delta": 0
         }
     },
     {
@@ -71,7 +71,7 @@
             ".text": 2020,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 2020,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -82,9 +82,9 @@
             ".text": 1352,
             ".data": 8,
             ".bss": 114,
-            ".text-delta": 1352,
-            ".data-delta": 8,
-            ".bss-delta": 114
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
         }
     },
     {
@@ -93,9 +93,9 @@
             ".text": 4738,
             ".data": 0,
             ".bss": 287,
-            ".text-delta": 4738,
+            ".text-delta": 0,
             ".data-delta": 0,
-            ".bss-delta": 287
+            ".bss-delta": 0
         }
     },
     {
@@ -104,17 +104,17 @@
             ".text": 15375,
             ".data": 12,
             ".bss": 1160,
-            ".text-delta": 15375,
-            ".data-delta": 12,
-            ".bss-delta": 1160
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
         }
     },
     {
         "summary": {
             "static_ram": 6521,
-            "static_ram_delta": 6521,
+            "static_ram_delta": 0,
             "total_flash": 25347,
-            "total_flash_delta": 25347
+            "total_flash_delta": 0
         }
     }
 ]
