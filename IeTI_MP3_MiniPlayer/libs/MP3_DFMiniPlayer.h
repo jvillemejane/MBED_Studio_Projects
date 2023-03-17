@@ -99,6 +99,13 @@ class MP3_DFMiniPlayer{
         */
         uint8_t    waitAvailable(void);
 
+        /**
+        * @brief Play the indexed track in a specific directory
+        * @param track number of the track
+		* @param dir number of the directory (if 0, root directory)
+        */		
+		void 	playTrack(uint16_t track, uint16_t dir);
+
 
 };
 
