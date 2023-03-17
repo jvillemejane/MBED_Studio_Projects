@@ -81,6 +81,9 @@ class MP3_DFMiniPlayer{
         bool        checkCheckSum(uint8_t *buffer);
 
 
+        UnbufferedSerial    *_debug;
+        char        chStr[64];
+
     public:
         /**
         * @brief Simple constructor of the MP3_DFMiniPlayer class.
@@ -97,7 +100,11 @@ class MP3_DFMiniPlayer{
         * @brief Send the type of device connected after reset
         * @return  1 if USB, 2 if SD Card, 3 if both, 4 if computer
         */
-        uint8_t    waitAvailable(void);
+        int8_t    waitAvailable(void);
+
+        /**
+        */
+        void    reset(void);
 
         /**
         * @brief Play the indexed track in a specific directory
@@ -105,6 +112,20 @@ class MP3_DFMiniPlayer{
 		* @param dir number of the directory (if 0, root directory)
         */		
 		void 	playTrack(uint16_t track, uint16_t dir);
+
+        /**
+        * @brief Start playing a track
+        */	
+        void    playCmd(void);
+
+        /**
+        * @brief Pause a track
+        */	
+        void    pauseCmd(void);
+
+
+        void    setDebugSerial(UnbufferedSerial *debug);
+        int     getDataCnt(void);
 
 
 };

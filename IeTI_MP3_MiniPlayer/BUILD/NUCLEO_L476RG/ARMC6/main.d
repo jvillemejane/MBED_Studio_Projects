@@ -234,4 +234,4 @@ BUILD\NUCLEO_L476RG\ARMC6\main.o: main.cpp \
   mbed-os\platform\include\platform\mbed_stats.h \
   mbed-os\platform\include\platform\Stream.h \
   mbed-os\platform\include\platform\FileLike.h \
-  mbed-os\platform\include\platform\FileBase.h
+  mbed-os\platform\include\platform\FileBase.h libs\MP3_DFMiniPlayer.h
