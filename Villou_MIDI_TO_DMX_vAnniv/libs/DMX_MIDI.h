@@ -44,7 +44,7 @@
 #define     MIDI_NB_NOTE_PER_OCT    12
 
 #include    "mbed.h"
-#include    "SETUP_CONFIG.h"
+#include    "PROCESS_MIDI.h"
 #include    "CONFIG_SPOT_MIDI.h"
 #include    "DMX_2_MIDI.h"
 

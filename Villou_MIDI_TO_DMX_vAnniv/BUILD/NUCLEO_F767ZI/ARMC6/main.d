@@ -237,10 +237,10 @@ BUILD\NUCLEO_F767ZI\ARMC6\main.o: main.cpp \
   mbed-os\platform\include\platform\ScopedRamExecutionLock.h \
   mbed-os\platform\include\platform\mbed_stats.h \
   mbed-os\platform\include\platform\Stream.h \
-  mbed-os\platform\include\platform\FileLike.h libs\SETUP_CONFIG.h \
+  mbed-os\platform\include\platform\FileLike.h libs\PROCESS_MIDI.h \
   libs\MIDI_MODE.h libs\DMX_2_MIDI.h libs\DMX_MIDI.h \
-  libs\CONFIG_SPOT_MIDI.h libs\DMX_SPOTS.h libs\DMX_values.h \
-  libs\LCD_DOG.h \
+  libs\CONFIG_SPOT_MIDI.h libs\CONFIG_PRESETS.h libs\DMX_SPOTS.h \
+  libs\DMX_values.h libs\LCD_DOG.h \
   mbed-os\storage\blockdevice\COMPONENT_SD\include\SD\SDBlockDevice.h \
   mbed-os\hal\include\hal\static_pinmap.h \
   mbed-os\hal\include\hal\spi_api.h mbed-os\hal\include\hal\pwmout_api.h \
@@ -254,4 +254,4 @@ BUILD\NUCLEO_F767ZI\ARMC6\main.o: main.cpp \
   mbed-os\platform\include\platform\PlatformMutex.h \
   mbed-os\storage\filesystem\fat\ChaN\ff.h \
   mbed-os\storage\filesystem\fat\ChaN\ffconf.h libs\DMX_MIDI.h \
-  libs\CONFIG_SPOT_MIDI.h
+  libs\CONFIG_SPOT_MIDI.h libs\CONFIG_PRESETS.h

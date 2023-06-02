@@ -1,16 +1,16 @@
 /****************************************************************************/
-/*  SETUP_CONFIG module library                                             */
+/*  PROCESS_MIDI module library                                             */
 /****************************************************************************/
 /*  LEnsE / Julien VILLEMEJANE       /   Institut d'Optique Graduate School */
 /****************************************************************************/
-/*  Library - SETUP_CONFIG.h file                                           */
+/*  Library - PROCESS_MIDI.h file                                           */
 /****************************************************************************/
 /*  Tested on Nucleo-L476RG / 11th nov 2021                                 */
 /****************************************************************************/
 
 
-#ifndef     SETUP_CONFIG_H_INCLUDED
-#define     SETUP_CONFIG_H_INCLUDED
+#ifndef     PROCESS_MIDI_H_INCLUDED
+#define     PROCESS_MIDI_H_INCLUDED
 #include    "mbed.h"
 
 #define     DEBUG_MODE      true

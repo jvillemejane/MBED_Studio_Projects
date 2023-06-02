@@ -173,6 +173,29 @@ void DMX_spots::updateData(uint8_t data[]){
     ch = this->getChanB();
     val = this->getB();
     data[addDMX-1+ch-1] = val;
-
+    ch = this->getChanA();
+    val = this->getA();
+    data[addDMX-1+ch-1] = val;
+    ch = this->getChanW();
+    val = this->getW();
+    data[addDMX-1+ch-1] = val;
+    ch = this->getChanUV();
+    val = this->getUV();
+    data[addDMX-1+ch-1] = val;
     // Tilt / Pan
+    ch = this->getChanPTSpeed();
+    val = this->getPTSpeed();
+    data[addDMX-1+ch-1] = val;
+    ch = this->getChanPan();
+    val = this->getPan();
+    data[addDMX-1+ch-1] = val;
+    ch = this->getChanPanF();
+    val = this->getPanF();
+    data[addDMX-1+ch-1] = val;
+    ch = this->getChanTilt();
+    val = this->getTilt();
+    data[addDMX-1+ch-1] = val;
+    ch = this->getChanTiltF();
+    val = this->getTiltF();
+    data[addDMX-1+ch-1] = val;
 }

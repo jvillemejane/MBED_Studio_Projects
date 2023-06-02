@@ -128,16 +128,16 @@ void detectNoteMIDI(uint8_t chan){
     if(new_note_midi[chan-1] == 1){
         switch(mode_midi[chan-1]){
             case MODE_CTRL:
-                processNoteMidiCtrl(chan-1);
+                processNoteMidiCtrl(chan);
                 break;
             case MODE_KEYB:
-                processNoteMidiKeyb(chan-1);
+                processNoteMidiKeyb(chan);
                 break;
             case MODE_SEQ:
-                processNoteMidiSequ(chan-1);
+                processNoteMidiSequ(chan);
                 break;
             default:
-                processNoteMidiCtrl(chan-1);
+                processNoteMidiCtrl(chan);
         }
         new_note_midi[chan-1] = 0;
         if(DEBUG_MODE) printf("MIDI%d - %x - %d %d \r\n", chan, midi_data[chan-1][0], note_data[chan-1], velocity_data[chan-1]);
@@ -155,15 +155,15 @@ void detectCCMIDI(uint8_t chan){
     if(new_CC_midi[chan-1] == 1){
         switch(mode_midi[chan-1]){
             case MODE_CTRL:
-                processCCMidiCtrl(chan-1);
+                processCCMidiCtrl(chan);
                 break;
             case MODE_KEYB:
                 break;
             case MODE_SEQ:
-                processCCMidiSequ(chan-1);
+                processCCMidiSequ(chan);
                 break;
             default:
-                processCCMidiCtrl(chan-1);
+                processCCMidiCtrl(chan);
         }
         new_CC_midi[chan-1] = 0;
         if(DEBUG_MODE) printf("MIDI%d - %x - %d %d \r\n", chan, midi_data[chan-1][0], note_data[chan-1], velocity_data[chan-1]);

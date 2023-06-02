@@ -13,7 +13,7 @@
 #define     DMX_SPOTS_H_INCLUDED
 
 #include    "mbed.h"
-#include    "SETUP_CONFIG.h"
+#include    "PROCESS_MIDI.h"
 #include    "DMX_values.h"
 
 // class definition for DMX_spots

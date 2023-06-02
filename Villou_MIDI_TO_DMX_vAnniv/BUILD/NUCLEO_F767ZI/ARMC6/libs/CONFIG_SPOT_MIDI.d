@@ -238,5 +238,5 @@ BUILD\NUCLEO_F767ZI\ARMC6\libs\CONFIG_SPOT_MIDI.o: \
   mbed-os\platform\include\platform\ScopedRamExecutionLock.h \
   mbed-os\platform\include\platform\mbed_stats.h \
   mbed-os\platform\include\platform\Stream.h \
-  mbed-os\platform\include\platform\FileLike.h libs\SETUP_CONFIG.h \
-  libs\DMX_SPOTS.h libs\DMX_values.h
+  mbed-os\platform\include\platform\FileLike.h libs\PROCESS_MIDI.h \
+  libs\CONFIG_PRESETS.h libs\DMX_SPOTS.h libs\DMX_values.h

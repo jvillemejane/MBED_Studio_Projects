@@ -59,12 +59,80 @@ void    configSpots(void){
     }
 }
 
-
-/* Test des couleurs */
-void    testConfigSpots(void){
+/* Mise à jour des couleurs */
+void    setAllColorSpots(uint8_t gpe, uint8_t color[]){
     for(int k = 0; k < NB_SPOTS; k++){
-        spots[k].setModeNoFunc();
-        spots[k].setDimmer(200);
-        spots[k].setRGB(0,255,255);
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setRGB(color[COLOR_POS_R], color[COLOR_POS_G], color[COLOR_POS_B]);
+            spots[k].setA(color[COLOR_POS_A]);
+            spots[k].setW(color[COLOR_POS_W]);
+            spots[k].setUV(color[COLOR_POS_UV]);
+        }
+    }    
+}
+
+/* Mise à jour des couleurs R, G, B */
+void    setAllColorRGBSpots(uint8_t gpe, uint8_t R, uint8_t G, uint8_t B){
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setRGB(R, G, B);
+        }
+    }    
+}
+
+/* Mise à jour des couleurs A, W, UV */
+void    setAllColorAWUVSpots(uint8_t gpe, uint8_t A, uint8_t W, uint8_t UV){
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setA(A);
+            spots[k].setW(W);
+            spots[k].setUV(UV);
+        }
+    }       
+}
+
+/* Mise à jour du dimmer */
+void    setAllDimmerSpots(uint8_t gpe, uint8_t dim){
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setDimmer(dim);
+        }
+    }
+}
+
+/* Mise à jour des positions */
+void    setAllPosition(uint8_t gpe, uint8_t speed, uint16_t pan, uint16_t tilt){
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setPTSpeed(speed);
+            spots[k].setPan(pan >> 8);
+            spots[k].setPanF(pan & 0xFF);
+            spots[k].setTilt(tilt >> 8);
+            spots[k].setTiltF(pan & 0xFF);
+        }
+    }    
+}
+
+void    setAllPTSpeed(uint8_t gpe, uint8_t speed){
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setPTSpeed(speed);
+        }
+    }    
+}
+
+void    setAllPan(uint8_t gpe, uint8_t pan){
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setPan(pan);
+        }
+    }    
+}
+
+void    setAllTilt(uint8_t gpe, uint8_t tilt){
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setTilt(tilt);
+        }
     }    
 }

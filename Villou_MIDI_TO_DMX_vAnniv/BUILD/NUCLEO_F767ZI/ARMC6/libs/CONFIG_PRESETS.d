@@ -1,5 +1,5 @@
-BUILD\NUCLEO_F767ZI\ARMC6\libs\SETUP_CONFIG.o: libs\SETUP_CONFIG.cpp \
-  BUILD\NUCLEO_F767ZI\ARMC6\mbed_config.h libs\SETUP_CONFIG.h \
+BUILD\NUCLEO_F767ZI\ARMC6\libs\CONFIG_PRESETS.o: libs\CONFIG_PRESETS.cpp \
+  BUILD\NUCLEO_F767ZI\ARMC6\mbed_config.h libs\CONFIG_PRESETS.h \
   mbed-os\mbed.h mbed-os\platform\include\platform\mbed_version.h \
   mbed-os\rtos\include\rtos\rtos.h \
   mbed-os\rtos\include\rtos\internal\mbed_rtos_storage.h \
@@ -237,19 +237,5 @@ BUILD\NUCLEO_F767ZI\ARMC6\libs\SETUP_CONFIG.o: libs\SETUP_CONFIG.cpp \
   mbed-os\platform\include\platform\ScopedRamExecutionLock.h \
   mbed-os\platform\include\platform\mbed_stats.h \
   mbed-os\platform\include\platform\Stream.h \
-  mbed-os\platform\include\platform\FileLike.h libs\DMX_MIDI.h \
-  libs\CONFIG_SPOT_MIDI.h libs\DMX_SPOTS.h libs\DMX_values.h \
-  libs\DMX_2_MIDI.h libs\MIDI_MODE.h libs\LCD_DOG.h \
-  mbed-os\storage\blockdevice\COMPONENT_SD\include\SD\SDBlockDevice.h \
-  mbed-os\hal\include\hal\static_pinmap.h \
-  mbed-os\hal\include\hal\spi_api.h mbed-os\hal\include\hal\pwmout_api.h \
-  mbed-os\hal\include\hal\analogin_api.h \
-  mbed-os\hal\include\hal\analogout_api.h \
-  mbed-os\hal\include\hal\i2c_api.h mbed-os\hal\include\hal\serial_api.h \
-  mbed-os\hal\include\hal\qspi_api.h mbed-os\hal\include\hal\ospi_api.h \
-  mbed-os\hal\include\hal\can_api.h \
-  mbed-os\storage\filesystem\fat\include\fat\FATFileSystem.h \
-  mbed-os\platform\include\platform\FileHandle.h \
-  mbed-os\platform\include\platform\PlatformMutex.h \
-  mbed-os\storage\filesystem\fat\ChaN\ff.h \
-  mbed-os\storage\filesystem\fat\ChaN\ffconf.h
+  mbed-os\platform\include\platform\FileLike.h libs\PROCESS_MIDI.h \
+  libs\DMX_SPOTS.h libs\DMX_values.h

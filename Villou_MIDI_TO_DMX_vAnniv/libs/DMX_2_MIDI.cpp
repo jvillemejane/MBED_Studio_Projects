@@ -12,7 +12,22 @@
 #include    "DMX_2_MIDI.h"
 #include    <string.h>
 
+
+
+/************************************/
+/* Main Ticker                      */
+/************************************/
+Ticker      main_timer;
+int         main_timer_cpt;
+int         main_timer_init;
+
+
 /* Inputs / Outputs */
+
+/************************************/
+/* SD CARD                          */
+/************************************/
+
 SDBlockDevice       sd_card(PE_6, PE_5, PE_2, PE_3, 1000000, 0);
     //PinName 	mosi = NC, PinName 	miso = NC, PinName 	sclk = NC,
     //PinName 	cs = NC, uint64_t 	hz = 1000000, bool 	crc_on = 0 
@@ -20,6 +35,30 @@ FATFileSystem       file_syst("fs");
 
 /* Global Variables */
 char        temp_string[17];        // LCD text
+
+/* Main Timer interrupt subroutine */
+void        ISR_mainTimer(void){
+    if(main_timer_cpt != 0)     main_timer_cpt--;
+}
+
+/* Start Main Timer */
+void        startMainTimer(void){
+    main_timer.attach_us(&ISR_mainTimer, 1000);
+}
+
+/* Set Time to Main Timer */
+void        setMainTimer(int time_ms){
+    main_timer_init = time_ms;
+}
+
+/* Test if Main Timer is done */
+bool        isMainTimer(void){
+    if(main_timer_cpt != 0)     return false;
+    else{
+        main_timer_cpt = main_timer_init;
+        return true;
+    }
+}
 
 
 /* Initialization of the SD Card */

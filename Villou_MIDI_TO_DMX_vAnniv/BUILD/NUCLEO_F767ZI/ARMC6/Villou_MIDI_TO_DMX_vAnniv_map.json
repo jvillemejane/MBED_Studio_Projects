@@ -2,7 +2,7 @@
     {
         "module": "[lib]\\c_w.l",
         "size": {
-            ".text": 4716,
+            ".text": 4780,
             ".data": 12,
             ".bss": 304,
             ".text-delta": 0,
@@ -44,9 +44,20 @@
         }
     },
     {
+        "module": "libs\\CONFIG_PRESETS.o",
+        "size": {
+            ".text": 94,
+            ".data": 768,
+            ".bss": 0,
+            ".text-delta": 14,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
         "module": "libs\\CONFIG_SPOT_MIDI.o",
         "size": {
-            ".text": 464,
+            ".text": 734,
             ".data": 0,
             ".bss": 397,
             ".text-delta": 0,
@@ -57,9 +68,9 @@
     {
         "module": "libs\\DMX_2_MIDI.o",
         "size": {
-            ".text": 90,
+            ".text": 346,
             ".data": 0,
-            ".bss": 276,
+            ".bss": 348,
             ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
@@ -68,7 +79,7 @@
     {
         "module": "libs\\DMX_MIDI.o",
         "size": {
-            ".text": 1709,
+            ".text": 1497,
             ".data": 0,
             ".bss": 3851,
             ".text-delta": 0,
@@ -79,10 +90,10 @@
     {
         "module": "libs\\DMX_SPOTS.o",
         "size": {
-            ".text": 488,
+            ".text": 744,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 192,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -90,10 +101,10 @@
     {
         "module": "libs\\DMX_values.o",
         "size": {
-            ".text": 72,
+            ".text": 108,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 20,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -121,9 +132,9 @@
         }
     },
     {
-        "module": "libs\\SETUP_CONFIG.o",
+        "module": "libs\\PROCESS_MIDI.o",
         "size": {
-            ".text": 10,
+            ".text": 228,
             ".data": 0,
             ".bss": 0,
             ".text-delta": 0,
@@ -134,7 +145,7 @@
     {
         "module": "main.o",
         "size": {
-            ".text": 272,
+            ".text": 284,
             ".data": 0,
             ".bss": 28,
             ".text-delta": 0,
@@ -145,7 +156,7 @@
     {
         "module": "mbed-os\\drivers",
         "size": {
-            ".text": 6239,
+            ".text": 6531,
             ".data": 0,
             ".bss": 1660,
             ".text-delta": 0,
@@ -210,10 +221,10 @@
     },
     {
         "summary": {
-            "static_ram": 12991,
+            "static_ram": 13831,
             "static_ram_delta": 0,
-            "total_flash": 71734,
-            "total_flash_delta": 212
+            "total_flash": 73788,
+            "total_flash_delta": 14
         }
     }
 ]

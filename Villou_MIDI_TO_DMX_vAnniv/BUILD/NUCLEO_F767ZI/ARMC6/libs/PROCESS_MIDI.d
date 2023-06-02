@@ -1,7 +1,6 @@
-BUILD\NUCLEO_F767ZI\ARMC6\libs\MIDI_MODE.o: libs\MIDI_MODE.cpp \
-  BUILD\NUCLEO_F767ZI\ARMC6\mbed_config.h libs\MIDI_MODE.h \
-  libs\DMX_2_MIDI.h mbed-os\mbed.h \
-  mbed-os\platform\include\platform\mbed_version.h \
+BUILD\NUCLEO_F767ZI\ARMC6\libs\PROCESS_MIDI.o: libs\PROCESS_MIDI.cpp \
+  BUILD\NUCLEO_F767ZI\ARMC6\mbed_config.h libs\PROCESS_MIDI.h \
+  mbed-os\mbed.h mbed-os\platform\include\platform\mbed_version.h \
   mbed-os\rtos\include\rtos\rtos.h \
   mbed-os\rtos\include\rtos\internal\mbed_rtos_storage.h \
   mbed-os\rtos\include\rtos\Kernel.h \
@@ -238,9 +237,9 @@ BUILD\NUCLEO_F767ZI\ARMC6\libs\MIDI_MODE.o: libs\MIDI_MODE.cpp \
   mbed-os\platform\include\platform\ScopedRamExecutionLock.h \
   mbed-os\platform\include\platform\mbed_stats.h \
   mbed-os\platform\include\platform\Stream.h \
-  mbed-os\platform\include\platform\FileLike.h libs\PROCESS_MIDI.h \
-  libs\DMX_MIDI.h libs\CONFIG_SPOT_MIDI.h libs\CONFIG_PRESETS.h \
-  libs\DMX_SPOTS.h libs\DMX_values.h libs\LCD_DOG.h \
+  mbed-os\platform\include\platform\FileLike.h libs\DMX_MIDI.h \
+  libs\CONFIG_SPOT_MIDI.h libs\CONFIG_PRESETS.h libs\DMX_SPOTS.h \
+  libs\DMX_values.h libs\DMX_2_MIDI.h libs\MIDI_MODE.h libs\LCD_DOG.h \
   mbed-os\storage\blockdevice\COMPONENT_SD\include\SD\SDBlockDevice.h \
   mbed-os\hal\include\hal\static_pinmap.h \
   mbed-os\hal\include\hal\spi_api.h mbed-os\hal\include\hal\pwmout_api.h \

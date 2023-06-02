@@ -18,12 +18,22 @@
 #include    <stdio.h>
 #include    <stdlib.h>
 #include    <string.h>
-#include    "SETUP_CONFIG.h"
+#include    "PROCESS_MIDI.h"
 #include    "MIDI_MODE.h"
 #include    "DMX_MIDI.h"
 #include    "LCD_DOG.h"
 #include    "DMX_SPOTS.h"
 
+
+/************************************/
+/* Main Ticker                      */
+/************************************/
+extern      Ticker      main_timer;
+/* Main Timer interrupt subroutine */
+void        ISR_mainTimer(void);
+void        startMainTimer(void);
+void        setMainTimer(int time_ms);
+bool        isMainTimer(void);
 
 /************************************/
 /* SD CARD                          */
