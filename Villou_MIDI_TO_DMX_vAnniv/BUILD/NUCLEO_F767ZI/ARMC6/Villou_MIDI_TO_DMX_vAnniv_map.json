@@ -1,0 +1,219 @@
+[
+    {
+        "module": "[lib]\\c_w.l",
+        "size": {
+            ".text": 4716,
+            ".data": 12,
+            ".bss": 304,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "[lib]\\fz_wm.l",
+        "size": {
+            ".text": 26,
+            ".data": 0,
+            ".bss": 0,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "[lib]\\libcppabi_w.l",
+        "size": {
+            ".text": 44,
+            ".data": 0,
+            ".bss": 0,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "anon$$obj.o",
+        "size": {
+            ".text": 32,
+            ".data": 0,
+            ".bss": 4352,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "libs\\CONFIG_SPOT_MIDI.o",
+        "size": {
+            ".text": 464,
+            ".data": 0,
+            ".bss": 397,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "libs\\DMX_2_MIDI.o",
+        "size": {
+            ".text": 90,
+            ".data": 0,
+            ".bss": 276,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "libs\\DMX_MIDI.o",
+        "size": {
+            ".text": 1709,
+            ".data": 0,
+            ".bss": 3851,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "libs\\DMX_SPOTS.o",
+        "size": {
+            ".text": 488,
+            ".data": 0,
+            ".bss": 0,
+            ".text-delta": 192,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "libs\\DMX_values.o",
+        "size": {
+            ".text": 72,
+            ".data": 0,
+            ".bss": 0,
+            ".text-delta": 20,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "libs\\LCD_DOG.o",
+        "size": {
+            ".text": 90,
+            ".data": 0,
+            ".bss": 172,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "libs\\MIDI_MODE.o",
+        "size": {
+            ".text": 0,
+            ".data": 0,
+            ".bss": 3,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "libs\\SETUP_CONFIG.o",
+        "size": {
+            ".text": 10,
+            ".data": 0,
+            ".bss": 0,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "main.o",
+        "size": {
+            ".text": 272,
+            ".data": 0,
+            ".bss": 28,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "mbed-os\\drivers",
+        "size": {
+            ".text": 6239,
+            ".data": 0,
+            ".bss": 1660,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "mbed-os\\hal",
+        "size": {
+            ".text": 2048,
+            ".data": 8,
+            ".bss": 114,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "mbed-os\\platform",
+        "size": {
+            ".text": 10689,
+            ".data": 80,
+            ".bss": 313,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "mbed-os\\rtos",
+        "size": {
+            ".text": 8,
+            ".data": 0,
+            ".bss": 0,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "mbed-os\\storage",
+        "size": {
+            ".text": 25238,
+            ".data": 0,
+            ".bss": 43,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "mbed-os\\targets",
+        "size": {
+            ".text": 19391,
+            ".data": 8,
+            ".bss": 1370,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "summary": {
+            "static_ram": 12991,
+            "static_ram_delta": 0,
+            "total_flash": 71734,
+            "total_flash_delta": 212
+        }
+    }
+]
