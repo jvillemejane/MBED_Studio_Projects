@@ -91,6 +91,49 @@ void    setAllColorAWUVSpots(uint8_t gpe, uint8_t A, uint8_t W, uint8_t UV){
     }       
 }
 
+/* Mise à jour des couleurs - R */
+void    setAllRSpots(uint8_t gpe, uint8_t val){
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setR(val);
+        }
+    }
+}
+void    setAllGSpots(uint8_t gpe, uint8_t val){
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setG(val);
+        }
+    }
+}
+void    setAllBSpots(uint8_t gpe, uint8_t val){
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setB(val);
+        }
+    }
+}
+void    setAllASpots(uint8_t gpe, uint8_t val){
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setA(val);
+        }
+    }
+}
+void    setAllWSpots(uint8_t gpe, uint8_t val){
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setW(val);
+        }
+    }
+}
+void    setAllUVSpots(uint8_t gpe, uint8_t val){
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setUV(val);
+        }
+    }
+}
 /* Mise à jour du dimmer */
 void    setAllDimmerSpots(uint8_t gpe, uint8_t dim){
     for(int k = 0; k < NB_SPOTS; k++){
@@ -99,6 +142,8 @@ void    setAllDimmerSpots(uint8_t gpe, uint8_t dim){
         }
     }
 }
+
+
 
 /* Mise à jour des positions */
 void    setAllPosition(uint8_t gpe, uint8_t speed, uint16_t pan, uint16_t tilt){

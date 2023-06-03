@@ -49,7 +49,7 @@
             ".text": 94,
             ".data": 768,
             ".bss": 0,
-            ".text-delta": 14,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -57,7 +57,7 @@
     {
         "module": "libs\\CONFIG_SPOT_MIDI.o",
         "size": {
-            ".text": 734,
+            ".text": 1082,
             ".data": 0,
             ".bss": 397,
             ".text-delta": 0,
@@ -68,7 +68,7 @@
     {
         "module": "libs\\DMX_2_MIDI.o",
         "size": {
-            ".text": 346,
+            ".text": 268,
             ".data": 0,
             ".bss": 348,
             ".text-delta": 0,
@@ -79,9 +79,9 @@
     {
         "module": "libs\\DMX_MIDI.o",
         "size": {
-            ".text": 1497,
+            ".text": 1426,
             ".data": 0,
-            ".bss": 3851,
+            ".bss": 3865,
             ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
@@ -90,7 +90,7 @@
     {
         "module": "libs\\DMX_SPOTS.o",
         "size": {
-            ".text": 744,
+            ".text": 774,
             ".data": 0,
             ".bss": 0,
             ".text-delta": 0,
@@ -134,7 +134,7 @@
     {
         "module": "libs\\PROCESS_MIDI.o",
         "size": {
-            ".text": 228,
+            ".text": 1180,
             ".data": 0,
             ".bss": 0,
             ".text-delta": 0,
@@ -145,7 +145,7 @@
     {
         "module": "main.o",
         "size": {
-            ".text": 284,
+            ".text": 292,
             ".data": 0,
             ".bss": 28,
             ".text-delta": 0,
@@ -156,7 +156,7 @@
     {
         "module": "mbed-os\\drivers",
         "size": {
-            ".text": 6531,
+            ".text": 6405,
             ".data": 0,
             ".bss": 1660,
             ".text-delta": 0,
@@ -178,7 +178,7 @@
     {
         "module": "mbed-os\\platform",
         "size": {
-            ".text": 10689,
+            ".text": 10681,
             ".data": 80,
             ".bss": 313,
             ".text-delta": 0,
@@ -221,10 +221,10 @@
     },
     {
         "summary": {
-            "static_ram": 13831,
+            "static_ram": 13845,
             "static_ram_delta": 0,
-            "total_flash": 73788,
-            "total_flash_delta": 14
+            "total_flash": 74843,
+            "total_flash_delta": 0
         }
     }
 ]

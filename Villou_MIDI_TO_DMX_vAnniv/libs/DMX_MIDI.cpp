@@ -56,8 +56,14 @@ int             rgb;
 // Midi
 uint8_t         cpt_midi[3];
 uint8_t         new_data_midi[3], new_note_midi[3], new_CC_midi[3];
-uint8_t         midi_data[3][3], channel_data[3], note_data[3], velocity_data[3];
-uint8_t         midi_on;
+uint8_t         midi_data[3][3], channel_data[3];
+uint8_t         note_data[3], velocity_data[3];
+uint8_t         CC_data[3], CCvalue_data[3];
+int8_t          midi_on;
+
+uint8_t         mode_global_midi;
+
+uint8_t         global_dimmer, global_r, global_g, global_b, global_a, global_w, global_uv;
 
 /* DMX output initialization */
 void initDMX(void){
@@ -86,13 +92,15 @@ void updateDMX(){
     wait_us(8);     
     out_tx = 0;     // break
     start = 0;
+    //__disable_irq();
     uint8_t     temp_data = 0;
     dmx.write(&temp_data, 1);     // Start
     for(int i = 0; i < SAMPLES; i++){
         dmx.write(&dmx_data[i], 1); ;     // data
     }
+    //__enable_irq();
     enableDMX = 0;
-    wait_us(2000); // time between frame  
+    wait_us(2000); // time between frame
 }
 
 /* Fonction d'initialisation de la liaison MIDI */
@@ -218,7 +226,7 @@ void stopNote(char midi_nb, char note, char velocity){
 /* Fonction d'interruption sur MIDI */
 void ISR_midi_in(void){
     debug_out = !debug_out;
-    char data;
+    uint8_t data;
     if(midi1.readable()){
         midi1.read(&data, 1);
         midi_on = 1;
@@ -233,38 +241,45 @@ void ISR_midi_in(void){
     }
     
     midi_on = midi_on-1;
+    if(midi_on >= 0){
+        if(data >= 128)
+            cpt_midi[midi_on] = 0;
+        else
+            cpt_midi[midi_on]++;
+        midi_data[midi_on][cpt_midi[midi_on]] = data;
 
-    if(data >= 128)
-        cpt_midi[midi_on] = 0;
-    else
-        cpt_midi[midi_on]++;
-    midi_data[midi_on][cpt_midi[midi_on]] = data;
-    
-    if(cpt_midi[midi_on] == 2){
-        cpt_midi[midi_on] = 0;
+        if(cpt_midi[midi_on] == 2){
+            cpt_midi[midi_on] = 0;
 
-        switch(midi_data[midi_on][0] & 0xF0){
-            case    MIDI_NOTE_ON:
-                new_note_midi[midi_on] = 1;
-                channel_data[midi_on] = midi_data[midi_on][0] & 0x0F;
-                channels_int_on[midi_on] += ((0b1) << channel_data[midi_on]);
-                note_data[midi_on] = midi_data[midi_on][1];
-                velocity_data[midi_on] = midi_data[midi_on][2];
-                if(velocity_data[midi_on] == 0){ new_note_midi[midi_on] = 2;}        // equivalent to note off if velocity is equal to 0
-                break;
-            case    MIDI_NOTE_OFF:
-                new_note_midi[midi_on] = 2;
-                channel_data[midi_on] = midi_data[midi_on][0] & 0x0F;
-                channels_int_off[midi_on] += ((0b1) << channel_data[midi_on]);
-                note_data[midi_on] = midi_data[midi_on][1];
-                velocity_data[midi_on] = midi_data[midi_on][2];
-                break;
-            case    MIDI_CONTINUOUS_CTL :
-                new_CC_midi[midi_on] = 1;                
-            default:
-                new_data_midi[midi_on] = 1;
+            switch(midi_data[midi_on][0] & 0xF0){
+                case    MIDI_NOTE_ON:
+                    new_note_midi[midi_on] = 1;
+                    channel_data[midi_on] = midi_data[midi_on][0] & 0x0F;
+                    channels_int_on[midi_on] += ((0b1) << channel_data[midi_on]);
+                    note_data[midi_on] = midi_data[midi_on][1];
+                    velocity_data[midi_on] = midi_data[midi_on][2];
+                    if(velocity_data[midi_on] == 0){ new_note_midi[midi_on] = 2;}        // equivalent to note off if velocity is equal to 0
+                    break;
+                case    MIDI_NOTE_OFF:
+                    new_note_midi[midi_on] = 2;
+                    channel_data[midi_on] = midi_data[midi_on][0] & 0x0F;
+                    channels_int_off[midi_on] += ((0b1) << channel_data[midi_on]);
+                    note_data[midi_on] = midi_data[midi_on][1];
+                    velocity_data[midi_on] = midi_data[midi_on][2];
+                    break;
+                case    MIDI_CONTINUOUS_CTL :
+                    new_CC_midi[midi_on] = 1;   
+                    channel_data[midi_on] = midi_data[midi_on][0] & 0x0F;
+                    channels_int_off[midi_on] += ((0b1) << channel_data[midi_on]);
+                    CC_data[midi_on] = midi_data[midi_on][1];
+                    CCvalue_data[midi_on] = midi_data[midi_on][2];
+                    break;             
+                default:
+                    new_data_midi[midi_on] = 1;
+            }
+            
+            midi_on = -1;
         }
-        midi_on = -1;
     }
 }
 

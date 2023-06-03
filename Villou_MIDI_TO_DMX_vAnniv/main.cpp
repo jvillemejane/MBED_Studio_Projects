@@ -32,6 +32,8 @@ int main()
     mode_midi[1] = MODE_KEYB;
     mode_midi[2] = MODE_SEQ;
 
+    mode_global_midi = MODE_GLOB_BLACKOUT;
+
     /* SD Card */    
     //initSPI();
     // Spots adress
@@ -42,12 +44,12 @@ int main()
 
     /* Main Timer */
     setMainTimer(5000);
-    startMainTimer();
+    //startMainTimer();
 
     // Black Out
     for(int k = 0; k < NB_SPOTS; k++){
         spots[k].setModeNoFunc();
-        spots[k].setDimmer(200);
+        spots[k].setDimmer(0);
         spots[k].blackOut();
     }
 
@@ -90,6 +92,6 @@ int main()
         /* DMX */
         updateSpots(spots);
         updateDMX();
-        wait_us(12000);
+        wait_us(10000);
     }
 }

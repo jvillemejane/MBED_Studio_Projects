@@ -36,12 +36,23 @@
 #ifndef     DMX_MIDI_H_INCLUDED
 #define     DMX_MIDI_H_INCLUDED
 
+#include <cstdint>
 #define     SAMPLES             512 
 #define     MIDI_NOTE_ON        0x90
 #define     MIDI_NOTE_OFF       0x80
 #define     MIDI_CONTINUOUS_CTL 0xB0
 #define     MIDI_FIRST_NOTE     20
 #define     MIDI_NB_NOTE_PER_OCT    12
+
+#define     MODE_GLOB_RGB       1
+#define     MODE_GLOB_BLACKOUT  0
+#define     MODE_GLOB_KEYB_M    2
+#define     MODE_GLOB_KEYB_A    3
+#define     MODE_GLOB_SEQ       4
+#define     MODE_GLOB_COL       5
+#define     MODE_GLOB_STROBE    6
+#define     MODE_GLOB_WHITE     7
+#define     MODE_GLOB_UV        8
 
 #include    "mbed.h"
 #include    "PROCESS_MIDI.h"
@@ -71,8 +82,14 @@ extern      int         rgb;
 extern      uint16_t    channels_int_on[], channels_int_off[];
 extern      uint8_t     cpt_midi[3];
 extern      uint8_t     new_data_midi[], new_note_midi[], new_CC_midi[];
-extern      uint8_t     midi_data[3][3], channel_data[], note_data[], velocity_data[];
-extern      uint8_t     midi_on;
+extern      uint8_t     midi_data[3][3], channel_data[];
+extern      uint8_t     note_data[], velocity_data[];
+extern      uint8_t     CC_data[], CCvalue_data[];
+extern      int8_t      midi_on;
+
+extern      uint8_t     mode_global_midi;
+
+extern      uint8_t     global_dimmer, global_r, global_g, global_b, global_a, global_w, global_uv;
 
 /* Functions */  
 /* DMX output initialization */

@@ -16,7 +16,12 @@
 /*** KEYBOARD ***/
 #define     KEY_NB      48
 #define     MIDI_CH     16
+#define     PRESET_NB   1
 extern      uint8_t     key_colors[];
+//extern      DMX_values  key_colors[KEY_NB][MIDI_CH][PRESET_NB];
+
+
+/*** CONTROLEUR ***/
 
 
 /*** COULEURS ***/

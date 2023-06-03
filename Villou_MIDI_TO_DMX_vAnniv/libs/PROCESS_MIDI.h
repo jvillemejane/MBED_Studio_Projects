@@ -13,7 +13,7 @@
 #define     PROCESS_MIDI_H_INCLUDED
 #include    "mbed.h"
 
-#define     DEBUG_MODE      true
+#define     DEBUG_MODE      false
 
 
 

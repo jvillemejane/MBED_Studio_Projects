@@ -8,6 +8,9 @@
 #include <cstdint>
 
 /* KEYBOARD - COLORS */
+//DMX_values  key_colors[KEY_NB][MIDI_CH][PRESET_NB];
+
+
 uint8_t     key_colors[KEY_NB * MIDI_CH] = {
        7,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -58,7 +61,6 @@ uint8_t     key_colors[KEY_NB * MIDI_CH] = {
        5,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
        6,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 };
-
 
 void    getColor(uint8_t indice, uint8_t c[]){
     for(uint8_t k = 0; k < 6; k++){

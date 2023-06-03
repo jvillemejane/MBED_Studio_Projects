@@ -48,6 +48,14 @@ void    configSpots(void);
 void    setAllColorSpots(uint8_t gpe, uint8_t color[]);
 void    setAllColorRGBSpots(uint8_t gpe, uint8_t R, uint8_t G, uint8_t B);
 void    setAllColorAWUVSpots(uint8_t gpe, uint8_t A, uint8_t W, uint8_t UV);
+/* Mise à jour des couleurs - R */
+void    setAllRSpots(uint8_t gpe, uint8_t val);
+void    setAllGSpots(uint8_t gpe, uint8_t val);
+void    setAllBSpots(uint8_t gpe, uint8_t val);
+void    setAllASpots(uint8_t gpe, uint8_t val);
+void    setAllWSpots(uint8_t gpe, uint8_t val);
+void    setAllUVSpots(uint8_t gpe, uint8_t val);
+
 /* Mise à jour du dimmer */
 void    setAllDimmerSpots(uint8_t gpe, uint8_t dim);
 
