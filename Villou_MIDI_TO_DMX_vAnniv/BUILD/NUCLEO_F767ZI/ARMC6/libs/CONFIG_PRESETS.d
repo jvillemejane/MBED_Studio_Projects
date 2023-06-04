@@ -238,4 +238,4 @@ BUILD\NUCLEO_F767ZI\ARMC6\libs\CONFIG_PRESETS.o: libs\CONFIG_PRESETS.cpp \
   mbed-os\platform\include\platform\mbed_stats.h \
   mbed-os\platform\include\platform\Stream.h \
   mbed-os\platform\include\platform\FileLike.h libs\PROCESS_MIDI.h \
-  libs\DMX_SPOTS.h libs\DMX_values.h
+  libs\SPECIFIC_ANNIV.h libs\DMX_SPOTS.h libs\DMX_values.h

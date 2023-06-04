@@ -38,14 +38,14 @@
 /* Entrées - Sorties */
 DigitalOut      debug_out(D13);
 // DMX
-BufferedSerial  dmx(PE_8, PE_7);
+UnbufferedSerial    dmx(PE_8, PE_7);
 DigitalOut      out_tx(PE_12); 
 DigitalOut      start(PE_10);     //envoie des données
 DigitalOut      enableDMX(PE_14 );
 // MIDI
-BufferedSerial  midi1(PB_9, PB_8);  // Midi 1
-BufferedSerial  midi2(PG_14, PG_9);  // Midi 2
-BufferedSerial  midi3(PE_1, PE_0);  // Midi 3
+UnbufferedSerial  midi1(PB_9, PB_8);  // Midi 1
+UnbufferedSerial  midi2(PG_14, PG_9);  // Midi 2
+UnbufferedSerial  midi3(PE_1, PE_0);  // Midi 3
 //BufferedSerial  midi(USBTX, USBRX);
 // Analogiques
 
@@ -60,15 +60,24 @@ uint8_t         midi_data[3][3], channel_data[3];
 uint8_t         note_data[3], velocity_data[3];
 uint8_t         CC_data[3], CCvalue_data[3];
 int8_t          midi_on;
-
+/* Mode de fonctionnement global en MIDI */
 uint8_t         mode_global_midi;
 
-uint8_t         global_dimmer, global_r, global_g, global_b, global_a, global_w, global_uv;
+/* Variables pour les valeurs globales d'intensités et couleurs */
+uint8_t         global_dimmer, global_r, global_g, global_b;
+uint8_t         global_a, global_w, global_uv;
+uint8_t         global_pan, global_tilt, global_pt_speed;
+uint8_t         global_strobe_speed;
+/* Variable de temps global / BPM */
+uint8_t         global_delta;
+
+/* Compteur pour le mode séquenceur RGB */
+uint8_t         seq_rgb_cpt;
 
 /* DMX output initialization */
 void initDMX(void){
-    dmx.set_baud(250000);
-    dmx.set_format (8, SerialBase::None, 2);
+    dmx.baud(250000);
+    dmx.format(8, SerialBase::None, 2);
     enableDMX = 0;
     // Initialisation canaux DMX
     clearDMX();
@@ -85,6 +94,8 @@ void clearDMX(){
 /* Updating DMX output with internal values */
 void updateDMX(){
     enableDMX = 1;
+    
+    wait_us(5); 
     start = 1;      // /start
     out_tx = 0;     // break
     wait_us(88);    
@@ -92,23 +103,24 @@ void updateDMX(){
     wait_us(8);     
     out_tx = 0;     // break
     start = 0;
-    //__disable_irq();
     uint8_t     temp_data = 0;
     dmx.write(&temp_data, 1);     // Start
     for(int i = 0; i < SAMPLES; i++){
-        dmx.write(&dmx_data[i], 1); ;     // data
+        dmx.write(&dmx_data[i], 1);     // data
+        wait_us(5);
     }
-    //__enable_irq();
+    wait_us(5); 
     enableDMX = 0;
-    wait_us(2000); // time between frame
+    thread_sleep_for(2); // time between frame
 }
 
 /* Fonction d'initialisation de la liaison MIDI */
 void initMIDI1(void){
     midi_on = 0;
-    midi1.set_baud(31250);
-    midi1.set_format(8, SerialBase::None, 1);
-    midi1.sigio(callback(ISR_midi_in));
+    midi1.baud(31250);
+    midi1.format(8, SerialBase::None, 1);
+    //midi1.sigio(callback(ISR_midi_in));
+    midi1.attach(&ISR_midi_in);
     channels_int_on[0] = 0;
     channels_int_off[0] = 0;
 }
@@ -116,18 +128,20 @@ void initMIDI1(void){
 /* Fonction d'initialisation de la liaison MIDI */
 void initMIDI2(void){
     midi_on = 0;
-    midi2.set_baud(31250);
-    midi2.set_format(8, SerialBase::None, 1);
-    midi2.sigio(callback(ISR_midi_in));
+    midi2.baud(31250);
+    midi2.format(8, SerialBase::None, 1);
+    //midi2.sigio(callback(ISR_midi_in));
+    midi2.attach(&ISR_midi_in);
     channels_int_on[1] = 0;
     channels_int_off[1] = 0;
 }
 /* Fonction d'initialisation de la liaison MIDI */
 void initMIDI3(void){
     midi_on = 0;
-    midi3.set_baud(31250);
-    midi3.set_format(8, SerialBase::None, 1);
-    midi3.sigio(callback(ISR_midi_in));
+    midi3.baud(31250);
+    midi3.format(8, SerialBase::None, 1);
+    //midi3.sigio(callback(ISR_midi_in));
+    midi3.attach(&ISR_midi_in);
     channels_int_on[2] = 0;
     channels_int_off[2] = 0;
 }
@@ -225,7 +239,6 @@ void stopNote(char midi_nb, char note, char velocity){
 
 /* Fonction d'interruption sur MIDI */
 void ISR_midi_in(void){
-    debug_out = !debug_out;
     uint8_t data;
     if(midi1.readable()){
         midi1.read(&data, 1);
@@ -285,6 +298,7 @@ void ISR_midi_in(void){
 
 /* Mise à jour tableau data */
 void updateSpots(DMX_spots spots[]){
+    processAllTime();
     for(int k = 0; k < NB_SPOTS; k++){
         spots[k].updateData(dmx_data);
     }

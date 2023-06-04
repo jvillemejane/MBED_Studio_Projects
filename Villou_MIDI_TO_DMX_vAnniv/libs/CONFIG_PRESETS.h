@@ -22,7 +22,8 @@ extern      uint8_t     key_colors[];
 
 
 /*** CONTROLEUR ***/
-
+#define     SEQ_RGB_SPOTS   4
+#define     SEQ_RGB_STEPS   8
 
 /*** COULEURS ***/
 
@@ -63,6 +64,17 @@ const       uint8_t     colors[COLOR_NB * 6] = {
     0,  0,  0,  0,  128,  162
 };
 
+/* SEQUENCES CONTROLEUR */
+extern      uint8_t     seq1[];
+extern      uint8_t     seq1_nb;
+extern      uint8_t     seq2[];
+extern      uint8_t     seq2_nb;
+extern      uint8_t     seq3[];
+extern      uint8_t     seq3_nb;
+extern      uint8_t     seq4[];
+extern      uint8_t     seq4_nb;
+
+extern      uint8_t     seq_rgb_steps[];
 
 /* FONCTIONS */
 

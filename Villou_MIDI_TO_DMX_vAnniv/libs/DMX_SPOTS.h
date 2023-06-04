@@ -15,6 +15,7 @@
 #include    "mbed.h"
 #include    "PROCESS_MIDI.h"
 #include    "DMX_values.h"
+#include <cstdint>
 
 // class definition for DMX_spots
 class DMX_spots
@@ -115,10 +116,12 @@ public:
     uint8_t getStrobeSpeed();
     uint8_t getStrobeSpeedMin();
     uint8_t getStrobeSpeedMax();
-    void setStrobeMode(void);
+    void setModeStrobe(void);
     void setStrobeSpeed(uint8_t speed);
+    
+    void setFadeMode(uint8_t val);
+    void setModeFade(void);
 
-    void blackOut(void);
 
     void updateData(uint8_t data[]);
     
@@ -132,6 +135,7 @@ private:
     uint8_t sound_inde;
     uint8_t mode_no_func;
     uint8_t mode_sound_min, mode_sound_max;
+    uint8_t mode_fade;
     // DIM - D_MIN - D_MAX
     uint8_t ch_dimmer, dim_min, dim_max;
     // R - G - B - W - A - UV

@@ -12,15 +12,12 @@
 #include    "DMX_2_MIDI.h"
 #include    <string.h>
 
-
-
 /************************************/
 /* Main Ticker                      */
 /************************************/
 Ticker      main_timer;
 int         main_timer_cpt;
 int         main_timer_init;
-
 
 /* Inputs / Outputs */
 
@@ -43,12 +40,17 @@ void        ISR_mainTimer(void){
 
 /* Start Main Timer */
 void        startMainTimer(void){
-    main_timer.attach_us(&ISR_mainTimer, 1000);
+    main_timer.attach(&ISR_mainTimer, 10ms);
+}
+
+/* Start Main Timer */
+void        stopMainTimer(void){
+    main_timer.detach();
 }
 
 /* Set Time to Main Timer */
 void        setMainTimer(int time_ms){
-    main_timer_init = time_ms;
+    main_timer_init = time_ms/10;
 }
 
 /* Test if Main Timer is done */

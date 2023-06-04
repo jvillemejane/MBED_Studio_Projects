@@ -9,7 +9,7 @@
 
 /* Variables globales */
 DMX_spots       spots[NB_SPOTS];
-uint8_t         spot_[13];
+uint8_t         spot_[NB_PARAMS];
 
 // TYPE / ADD / CHAN / GPE
 
@@ -28,16 +28,16 @@ void    configSpots(void){
         spots[k].setGroup(type_spot[k][3]);
         switch(type_spot[k][0]){
             case 1:
-                cpyTab((uint8_t*)spotLEDPARTY, spot_, 13);
+                cpyTab((uint8_t*)spotLEDPARTY, spot_, NB_PARAMS);
                 break;            
             case 2:
-                cpyTab((uint8_t*)spotRenkLVPT, spot_, 13);
+                cpyTab((uint8_t*)spotRenkLVPT, spot_, NB_PARAMS);
                 break;          
             case 3:
-                cpyTab((uint8_t*)spotSLS7, spot_, 13);
+                cpyTab((uint8_t*)spotSLS7, spot_, NB_PARAMS);
                 break;          
             case 4:
-                cpyTab((uint8_t*)spotTMH, spot_, 13);
+                cpyTab((uint8_t*)spotTMH, spot_, NB_PARAMS);
                 break;
             default:
                 break;
@@ -56,6 +56,8 @@ void    configSpots(void){
         spots[k].setChanPan(spot_[10]);
         spots[k].setChanTilt(spot_[11]);
         spots[k].setChanPTSpeed(spot_[12]);
+        spots[k].setChanSoundMode(spot_[13], false, spot_[14], spot_[15]);
+        spots[k].setFadeMode(spot_[16]);
     }
 }
 
@@ -64,9 +66,9 @@ void    setAllColorSpots(uint8_t gpe, uint8_t color[]){
     for(int k = 0; k < NB_SPOTS; k++){
         if((spots[k].getGroup() == gpe) || (gpe == 0)){
             spots[k].setRGB(color[COLOR_POS_R], color[COLOR_POS_G], color[COLOR_POS_B]);
-            spots[k].setA(color[COLOR_POS_A]);
-            spots[k].setW(color[COLOR_POS_W]);
-            spots[k].setUV(color[COLOR_POS_UV]);
+            if(spots[k].getChanA() != 0)    spots[k].setA(color[COLOR_POS_A]);
+            if(spots[k].getChanW() != 0)    spots[k].setW(color[COLOR_POS_W]);
+            if(spots[k].getChanUV() != 0)   spots[k].setUV(color[COLOR_POS_UV]);
         }
     }    
 }
@@ -84,9 +86,9 @@ void    setAllColorRGBSpots(uint8_t gpe, uint8_t R, uint8_t G, uint8_t B){
 void    setAllColorAWUVSpots(uint8_t gpe, uint8_t A, uint8_t W, uint8_t UV){
     for(int k = 0; k < NB_SPOTS; k++){
         if((spots[k].getGroup() == gpe) || (gpe == 0)){
-            spots[k].setA(A);
-            spots[k].setW(W);
-            spots[k].setUV(UV);
+            if(spots[k].getChanA() != 0)    spots[k].setA(A);
+            if(spots[k].getChanW() != 0)    spots[k].setW(W);
+            if(spots[k].getChanUV() != 0)   spots[k].setUV(UV);
         }
     }       
 }
@@ -116,21 +118,21 @@ void    setAllBSpots(uint8_t gpe, uint8_t val){
 void    setAllASpots(uint8_t gpe, uint8_t val){
     for(int k = 0; k < NB_SPOTS; k++){
         if((spots[k].getGroup() == gpe) || (gpe == 0)){
-            spots[k].setA(val);
+            if(spots[k].getChanA() != 0)    spots[k].setA(val);
         }
     }
 }
 void    setAllWSpots(uint8_t gpe, uint8_t val){
     for(int k = 0; k < NB_SPOTS; k++){
         if((spots[k].getGroup() == gpe) || (gpe == 0)){
-            spots[k].setW(val);
+            if(spots[k].getChanW() != 0)    spots[k].setW(val);
         }
     }
 }
 void    setAllUVSpots(uint8_t gpe, uint8_t val){
     for(int k = 0; k < NB_SPOTS; k++){
         if((spots[k].getGroup() == gpe) || (gpe == 0)){
-            spots[k].setUV(val);
+            if(spots[k].getChanUV() != 0)   spots[k].setUV(val);
         }
     }
 }
@@ -138,7 +140,7 @@ void    setAllUVSpots(uint8_t gpe, uint8_t val){
 void    setAllDimmerSpots(uint8_t gpe, uint8_t dim){
     for(int k = 0; k < NB_SPOTS; k++){
         if((spots[k].getGroup() == gpe) || (gpe == 0)){
-            spots[k].setDimmer(dim);
+            if(spots[k].getChanDimmer() != 0)   spots[k].setDimmer(dim);
         }
     }
 }
@@ -149,11 +151,11 @@ void    setAllDimmerSpots(uint8_t gpe, uint8_t dim){
 void    setAllPosition(uint8_t gpe, uint8_t speed, uint16_t pan, uint16_t tilt){
     for(int k = 0; k < NB_SPOTS; k++){
         if((spots[k].getGroup() == gpe) || (gpe == 0)){
-            spots[k].setPTSpeed(speed);
-            spots[k].setPan(pan >> 8);
-            spots[k].setPanF(pan & 0xFF);
-            spots[k].setTilt(tilt >> 8);
-            spots[k].setTiltF(pan & 0xFF);
+            if(spots[k].getChanPTSpeed() != 0)  spots[k].setPTSpeed(speed);
+            if(spots[k].getChanPan() != 0)      spots[k].setPan(pan >> 8);
+            if(spots[k].getChanPanF() != 0)     spots[k].setPanF(pan & 0xFF);
+            if(spots[k].getChanTilt() != 0)     spots[k].setTilt(tilt >> 8);
+            if(spots[k].getChanTiltF() != 0)    spots[k].setTiltF(pan & 0xFF);
         }
     }    
 }
@@ -161,7 +163,7 @@ void    setAllPosition(uint8_t gpe, uint8_t speed, uint16_t pan, uint16_t tilt){
 void    setAllPTSpeed(uint8_t gpe, uint8_t speed){
     for(int k = 0; k < NB_SPOTS; k++){
         if((spots[k].getGroup() == gpe) || (gpe == 0)){
-            spots[k].setPTSpeed(speed);
+            if(spots[k].getChanPTSpeed() != 0)  spots[k].setPTSpeed(speed);
         }
     }    
 }
@@ -169,7 +171,7 @@ void    setAllPTSpeed(uint8_t gpe, uint8_t speed){
 void    setAllPan(uint8_t gpe, uint8_t pan){
     for(int k = 0; k < NB_SPOTS; k++){
         if((spots[k].getGroup() == gpe) || (gpe == 0)){
-            spots[k].setPan(pan);
+            if(spots[k].getChanPan() != 0)      spots[k].setPan(pan);
         }
     }    
 }
@@ -177,7 +179,66 @@ void    setAllPan(uint8_t gpe, uint8_t pan){
 void    setAllTilt(uint8_t gpe, uint8_t tilt){
     for(int k = 0; k < NB_SPOTS; k++){
         if((spots[k].getGroup() == gpe) || (gpe == 0)){
-            spots[k].setTilt(tilt);
+            if(spots[k].getChanTilt() != 0)     spots[k].setTilt(tilt);
         }
     }    
+}
+
+void    setAllGlobalSpots(uint8_t gpe){
+    setAllRSpots(gpe, global_r);
+    setAllGSpots(gpe, global_g);
+    setAllBSpots(gpe, global_b);
+    setAllASpots(gpe, global_a);
+    setAllWSpots(gpe, global_w);
+    setAllUVSpots(gpe, global_uv);
+}
+
+
+void    setAllNoFuncMode(uint8_t gpe){
+    ANNIV_mode_nofunc(gpe);
+    /*
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setModeNoFunc();
+        }
+    }  
+    */   
+}
+
+void    setAllSoundMode(uint8_t gpe, uint8_t val){
+    ANNIV_mode_sound(gpe);
+    /*
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setModeSound(val);
+        }
+    }  
+    */   
+}
+
+void    setAllStrobeMode(uint8_t gpe, uint8_t val){
+    ANNIV_mode_strobe(gpe);
+    /*
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            spots[k].setModeSound(val);
+        }
+    }  
+    */   
+}
+
+void    setAllSpeedStrobeSpots(uint8_t gpe, uint8_t speed){
+    ANNIV_mode_strobe(gpe);
+    /*
+    for(int k = 0; k < NB_SPOTS; k++){
+        if((spots[k].getGroup() == gpe) || (gpe == 0)){
+            if(spots[k].getChanStrobeSpeed() != 0)     spots[k].setStrobeSpeed(speed);
+        }
+    }  
+    */
+}
+
+void    setAllFadeSpots(uint8_t gpe){
+    ANNIV_mode_fade(gpe);
+    // TO DO
 }

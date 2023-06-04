@@ -239,8 +239,9 @@ BUILD\NUCLEO_F767ZI\ARMC6\libs\MIDI_MODE.o: libs\MIDI_MODE.cpp \
   mbed-os\platform\include\platform\mbed_stats.h \
   mbed-os\platform\include\platform\Stream.h \
   mbed-os\platform\include\platform\FileLike.h libs\PROCESS_MIDI.h \
-  libs\DMX_MIDI.h libs\CONFIG_SPOT_MIDI.h libs\CONFIG_PRESETS.h \
-  libs\DMX_SPOTS.h libs\DMX_values.h libs\LCD_DOG.h \
+  libs\SPECIFIC_ANNIV.h libs\DMX_MIDI.h libs\CONFIG_SPOT_MIDI.h \
+  libs\CONFIG_PRESETS.h libs\DMX_SPOTS.h libs\DMX_values.h \
+  libs\LCD_DOG.h \
   mbed-os\storage\blockdevice\COMPONENT_SD\include\SD\SDBlockDevice.h \
   mbed-os\hal\include\hal\static_pinmap.h \
   mbed-os\hal\include\hal\spi_api.h mbed-os\hal\include\hal\pwmout_api.h \

@@ -53,24 +53,29 @@
 #define     MODE_GLOB_STROBE    6
 #define     MODE_GLOB_WHITE     7
 #define     MODE_GLOB_UV        8
+#define     MODE_GLOB_SEQ_RGB   9
+#define     MODE_GLOB_SOUND     10
+#define     MODE_GLOB_FADE      11
+
 
 #include    "mbed.h"
 #include    "PROCESS_MIDI.h"
 #include    "CONFIG_SPOT_MIDI.h"
 #include    "DMX_2_MIDI.h"
+#include    "DMX_SPOTS.h"
 
 /* Entrées - Sorties */
 
 extern      DigitalOut  debug_out;
 
-extern      BufferedSerial      dmx;
+extern      UnbufferedSerial      dmx;
 extern      DigitalOut  out_tx;
 extern      DigitalOut  start;     //envoie des données
 extern      DigitalOut  enableDMX;
 extern      AnalogIn    CV_volume;
 extern      AnalogIn    CV_pitch;
 
-extern      BufferedSerial  midi1, midi2, midi3;
+extern      UnbufferedSerial  midi1, midi2, midi3;
 
 extern      AnalogIn    variationR;
 extern      AnalogIn    variationG;
@@ -89,7 +94,13 @@ extern      int8_t      midi_on;
 
 extern      uint8_t     mode_global_midi;
 
-extern      uint8_t     global_dimmer, global_r, global_g, global_b, global_a, global_w, global_uv;
+extern      uint8_t     global_dimmer, global_r, global_g, global_b;
+extern      uint8_t     global_a, global_w, global_uv;
+extern      uint8_t     global_delta;
+extern      uint8_t     global_pan, global_tilt, global_pt_speed;
+extern      uint8_t     global_strobe_speed;
+/* Compteur pour le mode séquenceur RGB */
+extern      uint8_t     seq_rgb_cpt;
 
 /* Functions */  
 /* DMX output initialization */

@@ -1,9 +1,4 @@
 #include "DMX_2_MIDI.h"
-#include "DMX_MIDI.h"
-#include <cstdint>
-#include <string.h>
-#include "CONFIG_SPOT_MIDI.h"
-#include "CONFIG_PRESETS.h"
 
 #define WAIT_TIME_MS 500 
 
@@ -14,9 +9,8 @@ int main()
 {
     int cpt = 0;
     printf("Test\r\n");
-    debug_out = 1;
-    // Initialisation périphériques
-    
+
+    // Initialisation périphériques    
     initMIDI1();
     initMIDI2();
 /*
@@ -33,29 +27,36 @@ int main()
     mode_midi[2] = MODE_SEQ;
 
     mode_global_midi = MODE_GLOB_BLACKOUT;
+    global_dimmer = 0;
+    global_pan = 0;
+    global_tilt = 0;
+    global_pt_speed = 0;
 
     /* SD Card */    
     //initSPI();
     // Spots adress
     //openNewAddress("000");
 
-
     configSpots();
-
-    /* Main Timer */
-    setMainTimer(5000);
-    //startMainTimer();
 
     // Black Out
     for(int k = 0; k < NB_SPOTS; k++){
         spots[k].setModeNoFunc();
         spots[k].setDimmer(0);
-        spots[k].blackOut();
+    }
+    uint8_t c[6];
+    getColor(COLOR_BLACK, c);
+    setAllColorSpots(0, c);
+
+    thread_sleep_for(10);
+
+    // setAllDimmerSpots(0, 100);
+
+    for(int kk = 0; kk < NB_SPOTS; kk++){
+        printf("K=%d - Gpe = %d - DIM = %d\r\n", kk, spots[kk].getGroup(), spots[kk].getChanDimmer());
     }
 
-    wait_us(10000);
 
-    setAllDimmerSpots(0, 100);
     // MAIN LOOP
     while(true) { 
         /* MIDI */
@@ -68,30 +69,11 @@ int main()
         detectCCMIDI(3);
         */
         /* Test */
-        if(isMainTimer()){
-            cpt++;
-            printf("%d\r\n", cpt);
-            /*
-            if(cpt % 2 == 0){
-                uint8_t c[6];
-                getColor(COLOR_WHITE, c);
-                 
-                setAllColorSpots(5, c);
-                setAllPosition(5, 250, 200 << 8, 200 << 8);
-                setAllDimmerSpots(5, 50);
-            }
-            else{
-                setAllColorRGBSpots(5, 0, 0, 255);
-                setAllColorAWUVSpots(5, 0, 100, 0);
-                setAllPosition(5, 10, 100 << 8, 150 << 8);
-                setAllDimmerSpots(5, 20);
-            }
-            */
-        }
+        //seq_rgb_glob();
 
         /* DMX */
         updateSpots(spots);
         updateDMX();
-        wait_us(10000);
+        thread_sleep_for(10);
     }
 }

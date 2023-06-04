@@ -12,8 +12,6 @@
 #ifndef     DMX_2_MIDI_H_INCLUDED
 #define     DMX_2_MIDI_H_INCLUDED
 
-#define     DEBUG   false
-
 #include    "mbed.h"
 #include    <stdio.h>
 #include    <stdlib.h>
@@ -23,7 +21,10 @@
 #include    "DMX_MIDI.h"
 #include    "LCD_DOG.h"
 #include    "DMX_SPOTS.h"
+#include    "DMX_MIDI.h"
 
+#define     DEBUG_MODE      false
+#define     DEBUG           false
 
 /************************************/
 /* Main Ticker                      */
@@ -32,6 +33,7 @@ extern      Ticker      main_timer;
 /* Main Timer interrupt subroutine */
 void        ISR_mainTimer(void);
 void        startMainTimer(void);
+void        stopMainTimer(void);
 void        setMainTimer(int time_ms);
 bool        isMainTimer(void);
 

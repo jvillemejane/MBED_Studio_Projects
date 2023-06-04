@@ -12,8 +12,7 @@
 #ifndef     PROCESS_MIDI_H_INCLUDED
 #define     PROCESS_MIDI_H_INCLUDED
 #include    "mbed.h"
-
-#define     DEBUG_MODE      false
+#include    "SPECIFIC_ANNIV.h"
 
 
 
@@ -33,5 +32,11 @@ void    processNoteMidiSequ(uint8_t chan);
 void    processCCMidiCtrl(uint8_t chan);
 /* Action à réaliser / Séquenceur / CC Midi */
 void    processCCMidiSequ(uint8_t chan);
+
+/* Action globale */
+void    processAllTime(void);
+
+/* Action sur séquenceur global RGB */
+void    seq_rgb_glob(void);
 
 #endif

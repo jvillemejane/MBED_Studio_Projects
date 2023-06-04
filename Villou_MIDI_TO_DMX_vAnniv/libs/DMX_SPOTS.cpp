@@ -10,10 +10,11 @@
 /****************************************************************************/
 
 #include "DMX_SPOTS.h"
+#include <cstdint>
 
 // standard constructor
 DMX_spots::DMX_spots(void){
-
+    this->address = 0;
 }
 // print spot info
 void DMX_spots::print(BufferedSerial *s){
@@ -45,13 +46,34 @@ void DMX_spots::setChanSoundMode(uint8_t ch, uint8_t inde, uint8_t val_min, uint
 }
 uint8_t DMX_spots::getMode(){    return this->valeurs.getMode(); }
 void DMX_spots::setMode(uint8_t val){    this->valeurs.setMode(val); }
-void DMX_spots::setModeNoFunc(){    this->valeurs.setMode(this->mode_no_func);}
+void DMX_spots::setModeNoFunc(){
+    this->valeurs.setMode(this->mode_no_func); 
+    if(this->sound_inde){
+        this->valeurs.setModeSound(0);
+    }
+    if(this->strobe_inde){
+        this->valeurs.setModeStrobe(0);
+    }
+}
 void DMX_spots::setModeSound(uint8_t val){
-    // TO DO
+    if(this->sound_inde){
+        if(val+mode_sound_min < mode_sound_max){
+            this->valeurs.setModeSound(this->mode_sound_min + val);
+        }
+        else{
+            this->valeurs.setModeSound(this->mode_sound_min);
+        }
+        this->valeurs.setMode(0);
+    }
+    else{
+        this->valeurs.setMode(this->mode_sound_min);
+    }  
+    if(this->strobe_inde){
+        this->valeurs.setModeStrobe(0);
+    }
 }
 uint8_t DMX_spots::getModeSoundValue(void){
-    // TO DO
-    return 0;
+    return this->mode_sound_min;
 }
 bool DMX_spots::isSoundInde(void){  return this->sound_inde; }
 // dimmer
@@ -136,28 +158,41 @@ bool DMX_spots::isStrobeInde(void){ return this->strobe_inde; }
 uint8_t DMX_spots::getStrobeSpeed(){    return this->valeurs.getSTSpeed(); }
 uint8_t DMX_spots::getStrobeSpeedMin(){ return this->st_min; }
 uint8_t DMX_spots::getStrobeSpeedMax(){ return this->st_max; }
-void DMX_spots::setStrobeMode(void){    this->valeurs.setModeStrobe(this->mode_strobe); }
+void DMX_spots::setModeStrobe(void){
+    if(this->strobe_inde){
+        this->valeurs.setModeStrobe(this->mode_strobe);
+        this->valeurs.setMode(0);
+    }
+    else{
+        this->valeurs.setMode(this->mode_sound_min);
+    }  
+    if(this->sound_inde){
+        this->valeurs.setModeSound(0);
+    }
+    
+        this->valeurs.setModeStrobe(this->mode_strobe); }
 void DMX_spots::setStrobeSpeed(uint8_t speed){  return this->valeurs.setSTSpeed(speed); }
 
-void DMX_spots::blackOut(void){
-    this->setModeNoFunc();
-    this->setRGB(0, 0, 0);
-    this->setW(0);
-    this->setA(0);
-    this->setUV(0);
-    this->setPan(0);
-    this->setTilt(0);
-    this->setDimmer(0);
+// get/set fade mode
+void DMX_spots::setFadeMode(uint8_t val){
+    this->mode_fade = val;
+}
+void    DMX_spots::setModeFade(void){
+    this->valeurs.setMode(this->mode_fade);
+    if(this->sound_inde){
+        this->valeurs.setModeSound(0);
+    }
+    if(this->strobe_inde){
+        this->valeurs.setModeStrobe(0);
+    }
 }
 
-
 void DMX_spots::updateData(uint8_t data[]){
-    DMX_values valeurs = this->getValues();
-    int addDMX = this->getAdd();
+    int16_t addDMX = this->getAdd();
     // TO FINISH
     // Mode
-    int ch = this->getChanMode();
-    int val = this->getMode();
+    int16_t ch = this->getChanMode();
+    int8_t val = this->getMode();
     data[addDMX-1+ch-1] = val;
     // Dimmer
     ch = this->getChanDimmer();
@@ -173,29 +208,30 @@ void DMX_spots::updateData(uint8_t data[]){
     ch = this->getChanB();
     val = this->getB();
     data[addDMX-1+ch-1] = val;
+
     ch = this->getChanA();
     val = this->getA();
-    data[addDMX-1+ch-1] = val;
+    if(ch != 0) data[addDMX-1+ch-1] = val;
     ch = this->getChanW();
     val = this->getW();
-    data[addDMX-1+ch-1] = val;
+    if(ch != 0) data[addDMX-1+ch-1] = val;
     ch = this->getChanUV();
     val = this->getUV();
-    data[addDMX-1+ch-1] = val;
+    if(ch != 0) data[addDMX-1+ch-1] = val;
     // Tilt / Pan
     ch = this->getChanPTSpeed();
     val = this->getPTSpeed();
-    data[addDMX-1+ch-1] = val;
+    if(ch != 0) data[addDMX-1+ch-1] = val;
     ch = this->getChanPan();
     val = this->getPan();
-    data[addDMX-1+ch-1] = val;
+    if(ch != 0) data[addDMX-1+ch-1] = val;
     ch = this->getChanPanF();
     val = this->getPanF();
-    data[addDMX-1+ch-1] = val;
+    if(ch != 0) data[addDMX-1+ch-1] = val;
     ch = this->getChanTilt();
     val = this->getTilt();
-    data[addDMX-1+ch-1] = val;
+    if(ch != 0) data[addDMX-1+ch-1] = val;
     ch = this->getChanTiltF();
     val = this->getTiltF();
-    data[addDMX-1+ch-1] = val;
+    if(ch != 0) data[addDMX-1+ch-1] = val;
 }
