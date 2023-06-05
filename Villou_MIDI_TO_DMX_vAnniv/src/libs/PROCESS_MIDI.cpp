@@ -82,19 +82,31 @@ void    processNoteMidiCtrl(uint8_t chan){
 
         case 44:    /* SEQ1 mode */
             mode_global_midi = MODE_GLOB_SEQ;
+            startMainTimer();
+            setMainTimer(global_delta*10);
             global_seq_nb = 1;
+            global_seq_nb_cpt = 0;
             break;
         case 45:    /* SEQ2 mode */
             mode_global_midi = MODE_GLOB_SEQ;
+            startMainTimer();
+            setMainTimer(global_delta*10);
             global_seq_nb = 2;
+            global_seq_nb_cpt = 0;
             break;
         case 46:    /* SEQ3 mode */
             mode_global_midi = MODE_GLOB_SEQ;
+            startMainTimer();
+            setMainTimer(global_delta*10);
             global_seq_nb = 3;
+            global_seq_nb_cpt = 0;
             break;
         case 47:    /* SEQ4 mode */
             mode_global_midi = MODE_GLOB_SEQ;
+            startMainTimer();
+            setMainTimer(global_delta*10);
             global_seq_nb = 4;
+            global_seq_nb_cpt = 0;
             break;
 
         case 52 :   /* Mode KEYB Alone - Channel MIDI 1 */
@@ -110,6 +122,8 @@ void    processNoteMidiCtrl(uint8_t chan){
         case 55 :   /* Sequenceur RGB - Chenillard */
             mode_global_midi = MODE_GLOB_SEQ_RGB;
             if(DEBUG_MODE)  printf("SEQ RGB MODE\r\n"); 
+            startMainTimer();
+            setMainTimer(global_delta*100);
             seq_rgb_cpt = 0;            
             break;
             
@@ -181,16 +195,27 @@ void    processCCMidiCtrl(uint8_t chan){
             global_delta = CCvalue_data[chan-1];
             if(DEBUG_MODE)  printf("\tGB_DELTA=%d \r\n", global_delta);
             
-            if(mode_global_midi == MODE_GLOB_SEQ_RGB){
-                bpm = (((double)global_delta + 1) + 30);
-                printf("\tBPM=%f \r\n", bpm);
-                bpm = 60.0/bpm*1000;
-                printf("\tinBPM=%d ms\r\n", (int)bpm);
-                setMainTimer((int)(bpm));
-                startMainTimer();
-            }
-            else{
-                stopMainTimer();
+            switch(mode_global_midi){
+                case MODE_GLOB_SEQ_RGB :
+                    bpm = (((double)global_delta + 1) + 30);
+                    if(DEBUG_MODE)  printf("\tBPM=%f \r\n", bpm);
+                    printf("\tBPM=%f \r\n", bpm);
+                    bpm = 60.0/bpm*1000;
+                    if(DEBUG_MODE)  printf("\tinBPM=%d ms\r\n", (int)bpm);
+                    setMainTimer((int)(bpm));
+                    startMainTimer();
+                    break;
+                case MODE_GLOB_SEQ :
+                    bpm = (((double)global_delta + 1)/2.0 + 70);
+                    if(DEBUG_MODE)  printf("\tBPM=%f \r\n", bpm);
+                    printf("\tBPM=%f \r\n", bpm);
+                    bpm = 60.0/bpm*1000;
+                    if(DEBUG_MODE)  printf("\tinBPM=%d ms\r\n", (int)bpm);
+                    setMainTimer((int)(bpm));
+                    startMainTimer();
+                    break;
+                default:
+                    stopMainTimer();
             }
             break;
         case 15 :    /* PAN - CC 15 */
@@ -289,10 +314,12 @@ void    processAllTime(void){
             stopMainTimer();
             break;
         case MODE_GLOB_SEQ:
-            startMainTimer();
+            seq_nb_glob(global_seq_nb);
+            setAllDimmerSpots(0, global_dimmer);
             break;
         case MODE_GLOB_SEQ_RGB:
-            startMainTimer();
+            seq_rgb_glob();
+            setAllDimmerSpots(0, global_dimmer);
             break;
         default:
             break;
@@ -302,19 +329,31 @@ void    processAllTime(void){
     setAllPTSpeed(0, global_pt_speed);
 }
 
-void    seq_nb_glob(void){
+void    seq_nb_glob(uint8_t nb){
+    uint8_t seq[33];
+
     if(isMainTimer()){
+        switch(nb){
+            case 1:
+                cpyTab(seq1, seq, 33);
+                break;
+            case 2:
+                cpyTab(seq2, seq, 33);
+                break;
+            case 3:
+                cpyTab(seq3, seq, 33);
+                break;
+            case 4:
+            default:
+                cpyTab(seq4, seq, 33);
+                break;
+        }
+        uint8_t nb_steps = seq[0];
         if(mode_global_midi == MODE_GLOB_SEQ){
             setAllGlobalSpots(0);
-            for(int k = 0; k < SEQ_RGB_SPOTS; k++){
-                uint8_t step = seq_rgb_cpt % SEQ_RGB_STEPS;
-                for(int kk = 0; kk < NB_SPOTS; kk++){
-                    if(spots[kk].getGroup() == k+1){
-                        setAllDimmerSpots(kk, (global_dimmer/2) * seq_rgb_steps[SEQ_RGB_SPOTS*step + k]);
-                    }
-                }
-            }
-            seq_rgb_cpt++;
+            setGpeColorSpots(seq[global_seq_nb_cpt+1]);
+            global_seq_nb_cpt++;
+            if(global_seq_nb_cpt == nb_steps)   global_seq_nb_cpt = 0;
         }
     }
 }

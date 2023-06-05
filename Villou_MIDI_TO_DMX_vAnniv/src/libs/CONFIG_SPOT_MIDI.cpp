@@ -76,12 +76,12 @@ void    setAllColorSpots(uint8_t gpe, uint8_t color[]){
 void    setGpeColorSpots(uint8_t note){
     for(int m_ch = 0; m_ch < MIDI_CH; m_ch++){
         uint8_t color_nb = key_colors[(note-1) * MIDI_CH + m_ch];
-        printf("[%d] %d ", m_ch, color_nb);
+        if(DEBUG_MODE)  printf("[%d] %d ", m_ch, color_nb);
         uint8_t c[6];
         getColor(color_nb, c);
         setAllColorSpots(m_ch+1, c);
     }
-    printf("\r\n");
+    if(DEBUG_MODE)  printf("\r\n");
 }
 
 /* Mise à jour des couleurs R, G, B */

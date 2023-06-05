@@ -33,6 +33,7 @@ int main()
     global_pt_speed = 0;
     global_color = 0;
     global_seq_nb = 0;
+    global_delta = 100;
 
     /* SD Card */    
     //initSPI();
@@ -71,7 +72,7 @@ int main()
         detectCCMIDI(3);
         */
         /* Test */
-        //seq_rgb_glob();
+        //
 
         /* DMX */
         updateSpots(spots);

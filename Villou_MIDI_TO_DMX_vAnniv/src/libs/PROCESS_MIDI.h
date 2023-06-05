@@ -38,5 +38,7 @@ void    processAllTime(void);
 
 /* Action sur séquenceur global RGB */
 void    seq_rgb_glob(void);
+/* Action sur séquenceur 1 to 4 */
+void    seq_nb_glob(uint8_t nb);
 
 #endif

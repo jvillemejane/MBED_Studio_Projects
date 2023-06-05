@@ -69,7 +69,7 @@ uint8_t         global_a, global_w, global_uv;
 uint8_t         global_pan, global_tilt, global_pt_speed;
 uint8_t         global_strobe_speed;
 uint8_t         global_color;
-uint8_t         global_seq_nb;
+uint8_t         global_seq_nb, global_seq_nb_cpt;
 /* Variable de temps global / BPM */
 uint8_t         global_delta;
 
