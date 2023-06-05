@@ -31,6 +31,8 @@ int main()
     global_pan = 0;
     global_tilt = 0;
     global_pt_speed = 0;
+    global_color = 0;
+    global_seq_nb = 0;
 
     /* SD Card */    
     //initSPI();
@@ -45,7 +47,7 @@ int main()
         spots[k].setDimmer(0);
     }
     uint8_t c[6];
-    getColor(COLOR_BLACK, c);
+    getColor(COLOR_N, c);
     setAllColorSpots(0, c);
 
     thread_sleep_for(10);

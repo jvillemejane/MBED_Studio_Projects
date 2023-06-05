@@ -99,6 +99,8 @@ extern      uint8_t     global_a, global_w, global_uv;
 extern      uint8_t     global_delta;
 extern      uint8_t     global_pan, global_tilt, global_pt_speed;
 extern      uint8_t     global_strobe_speed;
+extern      uint8_t     global_color;
+extern      uint8_t     global_seq_nb;
 /* Compteur pour le mode séquenceur RGB */
 extern      uint8_t     seq_rgb_cpt;
 

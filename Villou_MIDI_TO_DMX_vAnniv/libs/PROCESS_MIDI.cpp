@@ -29,10 +29,6 @@ void    processNoteMidiCtrl(uint8_t chan){
         case 49 :   /* Global RGBWAUV-P-T */
             mode_global_midi = MODE_GLOB_RGB;
             if(DEBUG_MODE)  printf("RGB MODE\r\n");
-            /*            
-            setAllDimmerSpots(0, global_dimmer);
-            setAllGlobalSpots(0);
-            */
             break;
         case 50 :   /* Global WHITE */
             mode_global_midi = MODE_GLOB_WHITE;
@@ -42,6 +38,65 @@ void    processNoteMidiCtrl(uint8_t chan){
             mode_global_midi = MODE_GLOB_UV;
             if(DEBUG_MODE)  printf("UV MODE\r\n"); 
             break;
+        case 36 :   /* Couleur 5 */
+            if(DEBUG_MODE)  printf("COL MODE\r\n");
+            mode_global_midi = MODE_GLOB_COL;
+            global_color = color_pads[4];
+            break;
+        case 37 :   /* Couleur 6 */
+            mode_global_midi = MODE_GLOB_COL;
+            global_color = color_pads[5];
+            break;
+        case 38 :   /* Couleur 7 */
+            mode_global_midi = MODE_GLOB_COL;
+            global_color = color_pads[6];
+            break;
+        case 39 :   /* Couleur 8 */
+            mode_global_midi = MODE_GLOB_COL;
+            global_color = color_pads[7];
+            break;
+        case 40 :   /* Couleur 1 */
+            mode_global_midi = MODE_GLOB_COL;
+            global_color = color_pads[0];
+            break;
+        case 41 :   /* Couleur 2 */
+            mode_global_midi = MODE_GLOB_COL;
+            global_color = color_pads[1];
+            break;
+        case 42 :   /* Couleur 3 */
+            mode_global_midi = MODE_GLOB_COL;
+            global_color = color_pads[2];
+            break;
+        case 43 :   /* Couleur 4 */
+            mode_global_midi = MODE_GLOB_COL;
+            global_color = color_pads[3];
+            break;
+        case 56 :   /* Couleur 9 */
+            mode_global_midi = MODE_GLOB_COL;
+            global_color = color_pads[8];
+            break;
+        case 57 :   /* Couleur 10 */
+            mode_global_midi = MODE_GLOB_COL;
+            global_color = color_pads[9];
+            break;
+
+        case 44:    /* SEQ1 mode */
+            mode_global_midi = MODE_GLOB_SEQ;
+            global_seq_nb = 1;
+            break;
+        case 45:    /* SEQ2 mode */
+            mode_global_midi = MODE_GLOB_SEQ;
+            global_seq_nb = 2;
+            break;
+        case 46:    /* SEQ3 mode */
+            mode_global_midi = MODE_GLOB_SEQ;
+            global_seq_nb = 3;
+            break;
+        case 47:    /* SEQ4 mode */
+            mode_global_midi = MODE_GLOB_SEQ;
+            global_seq_nb = 4;
+            break;
+
         case 52 :   /* Mode KEYB Alone - Channel MIDI 1 */
             mode_global_midi = MODE_GLOB_KEYB_A;
             break;
@@ -77,21 +132,15 @@ void    processNoteMidiCtrl(uint8_t chan){
 }
 /* Action à réaliser / Clavier / Note Midi */
 void    processNoteMidiKeyb(uint8_t chan){
-    uint8_t note = note_data[chan-1] % KEY_NB;
+    uint8_t note = note_data[chan-1];
     if(mode_global_midi == MODE_GLOB_KEYB_A){
-        uint8_t color_nb = key_colors[note*MIDI_CH + 0];
-        if(DEBUG_MODE)  printf("NoteMidiKEYB_A - N=%d - %d - %d\r\n", chan, note_data[chan-1], color_nb);
         uint8_t c[6];
-        getColor(color_nb, c);
+        // Modif Couleurs c[]
         setAllColorSpots(0, c);
     }
     if(mode_global_midi == MODE_GLOB_KEYB_M){
-        // TODO : boucle sur groupe
-        uint8_t color_nb = key_colors[note*MIDI_CH + 0];
-        if(DEBUG_MODE)  printf("NoteMidiKEYB_M - N=%d - %d - %d\r\n", chan, note_data[chan-1], color_nb);
-        uint8_t c[6];
-        getColor(color_nb, c);
-        setAllColorSpots(0, c);
+        note = note % KEY_NB;
+        setGpeColorSpots(note);
     }
 }
 /* Action à réaliser / Séquenceur / Note Midi */
@@ -168,7 +217,7 @@ void    processAllTime(void){
     switch(mode_global_midi){
         case MODE_GLOB_BLACKOUT :
             setAllNoFuncMode(0);
-            getColor(COLOR_BLACK, c);
+            getColor(COLOR_N, c);
             setAllColorSpots(0, c);
             stopMainTimer();
             break;
@@ -228,6 +277,23 @@ void    processAllTime(void){
             setAllFadeSpots(0);  
             stopMainTimer();
             break;
+        case MODE_GLOB_KEYB_A :   
+            setAllNoFuncMode(0);
+            setAllFadeSpots(0);  
+            stopMainTimer();
+            break;
+        case MODE_GLOB_COL:
+            setAllNoFuncMode(0);
+            setGpeColorSpots(global_color);
+            setAllDimmerSpots(0, global_dimmer);
+            stopMainTimer();
+            break;
+        case MODE_GLOB_SEQ:
+            startMainTimer();
+            break;
+        case MODE_GLOB_SEQ_RGB:
+            startMainTimer();
+            break;
         default:
             break;
     }
@@ -236,6 +302,22 @@ void    processAllTime(void){
     setAllPTSpeed(0, global_pt_speed);
 }
 
+void    seq_nb_glob(void){
+    if(isMainTimer()){
+        if(mode_global_midi == MODE_GLOB_SEQ){
+            setAllGlobalSpots(0);
+            for(int k = 0; k < SEQ_RGB_SPOTS; k++){
+                uint8_t step = seq_rgb_cpt % SEQ_RGB_STEPS;
+                for(int kk = 0; kk < NB_SPOTS; kk++){
+                    if(spots[kk].getGroup() == k+1){
+                        setAllDimmerSpots(kk, (global_dimmer/2) * seq_rgb_steps[SEQ_RGB_SPOTS*step + k]);
+                    }
+                }
+            }
+            seq_rgb_cpt++;
+        }
+    }
+}
 
 void    seq_rgb_glob(void){
     if(isMainTimer()){

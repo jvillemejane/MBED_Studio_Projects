@@ -23,7 +23,7 @@
 #include    "DMX_SPOTS.h"
 #include    "DMX_MIDI.h"
 
-#define     DEBUG_MODE      false
+#define     DEBUG_MODE      true
 #define     DEBUG           false
 
 /************************************/

@@ -34,6 +34,7 @@ void    configSpots(void);
 
 /* Mise à jour des couleurs */
 void    setAllColorSpots(uint8_t gpe, uint8_t color[]);
+void    setGpeColorSpots(uint8_t note);
 void    setAllColorRGBSpots(uint8_t gpe, uint8_t R, uint8_t G, uint8_t B);
 void    setAllColorAWUVSpots(uint8_t gpe, uint8_t A, uint8_t W, uint8_t UV);
 /* Mise à jour des couleurs - R */

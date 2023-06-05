@@ -27,8 +27,6 @@ extern      uint8_t     key_colors[];
 
 /*** COULEURS ***/
 
-#define     COLOR_NB        11
-
 #define     COLOR_POS_R     0
 #define     COLOR_POS_G     1
 #define     COLOR_POS_B     2
@@ -37,44 +35,83 @@ extern      uint8_t     key_colors[];
 #define     COLOR_POS_UV    5
 
 /* Définition couleur */
-#define     COLOR_BLACK     0
-#define     COLOR_WHITE     1
-#define     COLOR_RED       2
-#define     COLOR_BLUE      3
-#define     COLOR_GREEN     4
+#define     COLOR_N         0
+#define     COLOR_W         1
+#define     COLOR_R         2
+#define     COLOR_B         3
+#define     COLOR_G         4
 #define     COLOR_UV        5
-#define     COLOR_AMBER     6
-#define     COLOR_UV_LIGHT  7
-#define     COLOR_UV_DARK   8
-#define     COLOR_UV_AMBER  9
-#define     COLOR_UV_A_DARK 10
+#define     COLOR_A         6
+#define     COLOR_UV_L      7
+#define     COLOR_UV_D      8
+#define     COLOR_UV_A      9
+#define     COLOR_UV_A_D    10
+#define     COLOR_R_L       11
+#define     COLOR_OR        12
+#define     COLOR_BR        13
+#define     COLOR_RB        14
+#define     COLOR_Y         15
+#define     COLOR_B_L       16
+#define     COLOR_G_L       17
+#define     COLOR_GB        18
+#define     COLOR_BG        19
 
-/* Preset de couleurs - R G B W A UV */
-const       uint8_t     colors[COLOR_NB * 6] = {
-    0,  0,  0,  0,  0,  0,
-    0,  0,  0,  255,0,  0,
-    255,0,  0,  0,  0,  0,
-    0,  255,0,  0,  0,  0,
-    0,  0,  255,0,  0,  0,
-    0,  0,  0,  0,  0,  128,
-    0,  0,  0,  0,  255,0,
-    0,  0,  0,  0,  0,  64,
-    0,  0,  0,  0,  0,  255,
-    0,  0,  0,  0,  64,  192,
-    0,  0,  0,  0,  128,  162
+
+/* Preset positions - PAN / TILT / SPD / ST / SPD */
+#define     POS_NB          19
+
+#define     POS_0_NOS       0
+#define     POS_0_ST        1
+#define     POS_VERT_NOS    2
+#define     POS_VERT_ST     3
+#define     POS_45_45_FF    4
+#define     POS_90_45_FF    5
+#define     POS_45_90_FF    6
+#define     POS_45_135_FF   7
+#define     POS_90_135_FF   8
+#define     POS_45_45_F     9
+#define     POS_90_45_F     10
+#define     POS_45_90_F     11
+#define     POS_45_135_F    12
+#define     POS_90_135_F    13
+#define     POS_45_45_L     14
+#define     POS_90_45_L     15
+#define     POS_45_90_L     16
+#define     POS_45_135_L    17
+#define     POS_90_135_L    18
+
+/* Preset positions - PAN / TILT / SPD / ST(speed by pot)*/
+const       uint8_t     positions[POS_NB * 4] = {
+    0,  0,  0,  0,      // No Strobe - Pos 0
+    0,  0,  0,  1,      // Strobe - Pos 0
+    128,0,  0,  0,      // No Strobe - Pos vert
+    128,0,  0,  1,      // Strobe - Pos vert
+    64, 32, 0,  0,      // POS 45 45 - FF
+    128, 32, 0,  0,
+    64, 64, 0,  0,
+    64, 96, 0,  0,
+    128, 96, 0,  0,
+    64, 32, 32,  0,     // POS 45 45 - F
+    128, 32, 32,  0,
+    64, 64, 32,  0,
+    64, 96, 32,  0,
+    128, 96, 32,  0,
+    64, 32, 64,  0,     // POS 45 45 - L
+    128, 32, 64,  0,
+    64, 64, 64,  0,
+    64, 96, 64,  0,
+    128, 96, 64,  0
 };
 
-/* SEQUENCES CONTROLEUR */
+/* SEQUENCES CONTROLEUR - Nb couleurs + valeurs couleurs */
 extern      uint8_t     seq1[];
-extern      uint8_t     seq1_nb;
 extern      uint8_t     seq2[];
-extern      uint8_t     seq2_nb;
 extern      uint8_t     seq3[];
-extern      uint8_t     seq3_nb;
 extern      uint8_t     seq4[];
-extern      uint8_t     seq4_nb;
 
 extern      uint8_t     seq_rgb_steps[];
+/* Liste Couleurs PADS */
+extern      uint8_t     color_pads[];
 
 /* FONCTIONS */
 
