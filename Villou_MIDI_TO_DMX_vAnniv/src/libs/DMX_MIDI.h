@@ -56,6 +56,7 @@
 #define     MODE_GLOB_SEQ_RGB   9
 #define     MODE_GLOB_SOUND     10
 #define     MODE_GLOB_FADE      11
+#define     MODE_GLOB_FADE_NPAN 12
 
 
 #include    "mbed.h"

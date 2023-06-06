@@ -22,10 +22,11 @@ const uint16_t type_spot[NB_SPOTS][4] = {
             {4, 257, 16, 5}, {4, 273, 16, 5}, {3, 289, 10, 6}, {3, 305, 10, 6}};
 
 
+
+
 /* TMH 46 */
 void    ANNIV_mode_strobe(uint8_t gpe);
 void    ANNIV_mode_sound(uint8_t gpe);
 void    ANNIV_mode_nofunc(uint8_t gpe);
-void    ANNIV_mode_fade(uint8_t gpe);
 
 #endif

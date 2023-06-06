@@ -17,6 +17,7 @@
 
 #include    "PROCESS_MIDI.h"
 #include    "DMX_MIDI.h"
+#include <chrono>
 #include <cstdint>
 
 /* Action à réaliser / Controleur / Note Midi */
@@ -82,31 +83,27 @@ void    processNoteMidiCtrl(uint8_t chan){
 
         case 44:    /* SEQ1 mode */
             mode_global_midi = MODE_GLOB_SEQ;
-            startMainTimer();
-            setMainTimer(global_delta*10);
             global_seq_nb = 1;
             global_seq_nb_cpt = 0;
+            startMainTimer();
             break;
         case 45:    /* SEQ2 mode */
             mode_global_midi = MODE_GLOB_SEQ;
-            startMainTimer();
-            setMainTimer(global_delta*10);
             global_seq_nb = 2;
             global_seq_nb_cpt = 0;
+            startMainTimer();
             break;
         case 46:    /* SEQ3 mode */
             mode_global_midi = MODE_GLOB_SEQ;
-            startMainTimer();
-            setMainTimer(global_delta*10);
             global_seq_nb = 3;
             global_seq_nb_cpt = 0;
+            startMainTimer();
             break;
         case 47:    /* SEQ4 mode */
             mode_global_midi = MODE_GLOB_SEQ;
-            startMainTimer();
-            setMainTimer(global_delta*10);
             global_seq_nb = 4;
             global_seq_nb_cpt = 0;
+            startMainTimer();
             break;
 
         case 52 :   /* Mode KEYB Alone - Channel MIDI 1 */
@@ -122,14 +119,19 @@ void    processNoteMidiCtrl(uint8_t chan){
         case 55 :   /* Sequenceur RGB - Chenillard */
             mode_global_midi = MODE_GLOB_SEQ_RGB;
             if(DEBUG_MODE)  printf("SEQ RGB MODE\r\n"); 
-            startMainTimer();
-            setMainTimer(global_delta*100);
-            seq_rgb_cpt = 0;            
+            seq_rgb_cpt = 0;         
+            startMainTimer();   
             break;
             
         case 58 :   /* Fade MODE */
-            ANNIV_mode_fade(0);
             mode_global_midi = MODE_GLOB_FADE;
+            global_seq_nb_cpt = 0;
+            startMainTimer();
+            break;
+        case 62 :   /* Fade MODE */
+            mode_global_midi = MODE_GLOB_FADE_NPAN;
+            global_seq_nb_cpt = 0;
+            startMainTimer();
             break;
         case 59 :   /* Sound MODE */
             ANNIV_mode_sound(0);
@@ -214,6 +216,13 @@ void    processCCMidiCtrl(uint8_t chan){
                     setMainTimer((int)(bpm));
                     startMainTimer();
                     break;
+                case MODE_GLOB_FADE :
+                case MODE_GLOB_FADE_NPAN :
+                    bpm = 1 + 1.0/(global_delta + 1)*100;
+                    printf("\tinBPM=%d ms\r\n", (int)bpm);
+                    setMainTimer((int)(bpm));
+                    startMainTimer();
+                    break;
                 default:
                     stopMainTimer();
             }
@@ -244,6 +253,9 @@ void    processAllTime(void){
             setAllNoFuncMode(0);
             getColor(COLOR_N, c);
             setAllColorSpots(0, c);
+            setAllPan(0, global_pan);
+            setAllTilt(0, global_tilt);
+            setAllPTSpeed(0, global_pt_speed);
             stopMainTimer();
             break;
         case MODE_GLOB_WHITE :  
@@ -255,6 +267,9 @@ void    processAllTime(void){
             setAllASpots(0, 0);
             setAllWSpots(0, global_w);
             setAllUVSpots(0, 0);
+            setAllPan(0, global_pan);
+            setAllTilt(0, global_tilt);
+            setAllPTSpeed(0, global_pt_speed);
             stopMainTimer();
             break;
         case MODE_GLOB_UV :        
@@ -266,6 +281,9 @@ void    processAllTime(void){
             setAllASpots(0, 0);
             setAllWSpots(0, 0);
             setAllUVSpots(0, global_uv);
+            setAllPan(0, global_pan);
+            setAllTilt(0, global_tilt);
+            setAllPTSpeed(0, global_pt_speed);
             stopMainTimer();
             break;
         case MODE_GLOB_STROBE :
@@ -277,6 +295,10 @@ void    processAllTime(void){
             setAllASpots(0, global_a);
             setAllWSpots(0, global_w);
             setAllUVSpots(0, global_uv);
+            setAllPan(0, global_pan);
+            setAllTilt(0, global_tilt);
+            setAllPTSpeed(0, global_pt_speed);
+            // TO DO - POS ALEATOIRE PAN/TILT
             stopMainTimer();
             break;
         case MODE_GLOB_RGB :
@@ -289,6 +311,9 @@ void    processAllTime(void){
             setAllASpots(0, global_a);
             setAllWSpots(0, global_w);
             setAllUVSpots(0, global_uv);
+            setAllPan(0, global_pan);
+            setAllTilt(0, global_tilt);
+            setAllPTSpeed(0, global_pt_speed);
             stopMainTimer();
             break;
         case MODE_GLOB_SOUND :
@@ -297,20 +322,30 @@ void    processAllTime(void){
             stopMainTimer();
             break;
         case MODE_GLOB_FADE :   
-            setAllNoFuncMode(0);
+            fade_mode_glob();
             setAllDimmerSpots(0, global_dimmer);
-            setAllFadeSpots(0);  
-            stopMainTimer();
+            break;
+        case MODE_GLOB_FADE_NPAN :   
+            fade_mode_glob();
+            setAllDimmerSpots(0, global_dimmer);
+            setAllPan(0, global_pan);
+            setAllTilt(0, global_tilt);
+            setAllPTSpeed(0, global_pt_speed);
             break;
         case MODE_GLOB_KEYB_A :   
             setAllNoFuncMode(0);
-            setAllFadeSpots(0);  
+            // TO DO
+            setAllPan(0, global_pan);
+            setAllTilt(0, global_tilt);
             stopMainTimer();
             break;
         case MODE_GLOB_COL:
             setAllNoFuncMode(0);
             setGpeColorSpots(global_color);
             setAllDimmerSpots(0, global_dimmer);
+            setAllPan(0, global_pan);
+            setAllTilt(0, global_tilt);
+            setAllPTSpeed(0, global_pt_speed);
             stopMainTimer();
             break;
         case MODE_GLOB_SEQ:
@@ -324,9 +359,6 @@ void    processAllTime(void){
         default:
             break;
     }
-    setAllPan(0, global_pan);
-    setAllTilt(0, global_tilt);
-    setAllPTSpeed(0, global_pt_speed);
 }
 
 void    seq_nb_glob(uint8_t nb){
@@ -371,6 +403,35 @@ void    seq_rgb_glob(void){
                 }
             }
             seq_rgb_cpt++;
+        }
+    }
+}
+
+void    fade_mode_glob(void){
+    if(isMainTimer()){
+        if((mode_global_midi == MODE_GLOB_FADE) || (mode_global_midi == MODE_GLOB_FADE_NPAN)){
+            setAllGlobalSpots(0);
+            uint8_t     c[6];
+            c[3] = 0;
+            c[4] = 0;
+            c[5] = 0;
+            for(int k = 0; k < MIDI_CH; k++){   // parcourt des 16 groupes de spots
+                // choix couleurs
+                c[0] = fade_ramp[((global_seq_nb_cpt + (0 * FADE_STEPS / 3)) + k * FADE_STEPS/MIDI_CH)% FADE_STEPS ];
+                c[1] = fade_ramp[((global_seq_nb_cpt + (1 * FADE_STEPS / 3)) + k * FADE_STEPS/MIDI_CH)% FADE_STEPS ];
+                c[2] = fade_ramp[((global_seq_nb_cpt + (2 * FADE_STEPS / 3)) + k * FADE_STEPS/MIDI_CH)% FADE_STEPS ];
+                uint8_t pan = fade_ramp[((global_seq_nb_cpt + (1 * FADE_STEPS / 3)) + k * FADE_STEPS/MIDI_CH)% FADE_STEPS ];
+                uint8_t tilt = fade_ramp[((global_seq_nb_cpt + (3 * FADE_STEPS / 3)) + k * FADE_STEPS/MIDI_CH)% FADE_STEPS ];
+                // affectation couleurs par groupe
+                setAllColorSpots(k+1, c);
+                if(mode_global_midi == MODE_GLOB_FADE){
+                    setAllPan(k+1, pan);
+                    setAllTilt(k+1, tilt);
+                    setAllPTSpeed(k+1, 100+(global_delta/32));
+                }
+            }
+            global_seq_nb_cpt++;
+            if(global_seq_nb_cpt == FADE_STEPS)   global_seq_nb_cpt = 0;
         }
     }
 }
