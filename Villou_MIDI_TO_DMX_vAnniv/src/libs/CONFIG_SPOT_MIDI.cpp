@@ -248,8 +248,3 @@ void    setAllSpeedStrobeSpots(uint8_t gpe, uint8_t speed){
     }  
     */
 }
-
-void    setAllFadeSpots(uint8_t gpe){
-    ANNIV_mode_fade(gpe);
-    // TO DO
-}

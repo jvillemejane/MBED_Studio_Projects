@@ -97,35 +97,3 @@ void    ANNIV_mode_sound(uint8_t gpe){
     }
 }
 
-
-void    ANNIV_mode_fade(uint8_t gpe){
-    uint16_t    add;
-    uint16_t    val;
-    uint8_t     gp;
-
-    for(int k = 0; k < NB_SPOTS; k++){
-        gp = spots[k].getGroup();
-        if((gp == gpe) || (gpe == 0)){
-            add = spots[k].getAdd()-1;
-            switch(type_spot[k][0]){
-                case 1: /* Hybrid */
-                    dmx_data[add + 6 - 1] = global_pt_speed;
-                    dmx_data[add + 7 - 1] = global_strobe_speed;   
-                    break;            
-                case 2: /* RenkForce */                 
-                    break;        
-                case 3: /* SLS-7 */
-                    break;          
-                case 4: /* TMH-46 */
-                    dmx_data[add + 5 - 1] = 0;
-                    dmx_data[add + 12 - 1] = 25;
-                    dmx_data[add + 13 - 1] = 150; 
-                    dmx_data[add + 14 - 1] = 5;
-                    dmx_data[add + 15 - 1] = global_strobe_speed;                    
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-}

@@ -40,7 +40,7 @@ void        ISR_mainTimer(void){
 
 /* Start Main Timer */
 void        startMainTimer(void){
-    main_timer.attach(&ISR_mainTimer, 10ms);
+    main_timer.attach(&ISR_mainTimer, 1ms);
 }
 
 /* Start Main Timer */
@@ -50,7 +50,7 @@ void        stopMainTimer(void){
 
 /* Set Time to Main Timer */
 void        setMainTimer(int time_ms){
-    main_timer_init = time_ms/10;
+    main_timer_init = time_ms;
 }
 
 /* Test if Main Timer is done */
