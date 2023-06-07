@@ -53,12 +53,11 @@ int main()
 
     thread_sleep_for(10);
 
-    // setAllDimmerSpots(0, 100);
-
-    for(int kk = 0; kk < NB_SPOTS; kk++){
-        printf("K=%d - Gpe = %d - DIM = %d\r\n", kk, spots[kk].getGroup(), spots[kk].getChanDimmer());
+    if(DEBUG_MODE){
+        for(int kk = 0; kk < NB_SPOTS; kk++){
+            printf("K=%d - Gpe = %d - DIM = %d\r\n", kk, spots[kk].getGroup(), spots[kk].getChanDimmer());
+        }
     }
-
 
     // MAIN LOOP
     while(true) { 
@@ -71,12 +70,10 @@ int main()
         detectNoteMIDI(3);
         detectCCMIDI(3);
         */
-        /* Test */
-        //
 
         /* DMX */
         updateSpots(spots);
         updateDMX();
-        thread_sleep_for(10);
+        thread_sleep_for(5);
     }
 }

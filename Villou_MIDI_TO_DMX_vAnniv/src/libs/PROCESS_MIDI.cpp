@@ -19,6 +19,7 @@
 #include    "DMX_MIDI.h"
 #include <chrono>
 #include <cstdint>
+#include <cstdlib>
 
 /* Action à réaliser / Controleur / Note Midi */
 void    processNoteMidiCtrl(uint8_t chan){
@@ -128,7 +129,7 @@ void    processNoteMidiCtrl(uint8_t chan){
             global_seq_nb_cpt = 0;
             startMainTimer();
             break;
-        case 62 :   /* Fade MODE */
+        case 62 :   /* Fade MODE - No Pan */
             mode_global_midi = MODE_GLOB_FADE_NPAN;
             global_seq_nb_cpt = 0;
             startMainTimer();
@@ -156,7 +157,19 @@ void    processNoteMidiKeyb(uint8_t chan){
     }
     if(mode_global_midi == MODE_GLOB_KEYB_M){
         note = note % KEY_NB;
+        // color
         setGpeColorSpots(note);
+        // mode strobe
+        for(int kk = 0; kk < MIDI_CH; kk++){
+            uint8_t strobe_on = key_strobe[note*MIDI_CH + kk];
+            if(strobe_on == 1){
+                setAllStrobeMode(kk, 0);
+            }
+            else{
+                setAllNoFuncMode(kk);
+            }
+        }
+
     }
 }
 /* Action à réaliser / Séquenceur / Note Midi */
@@ -332,6 +345,13 @@ void    processAllTime(void){
             setAllTilt(0, global_tilt);
             setAllPTSpeed(0, global_pt_speed);
             break;
+        case MODE_GLOB_KEYB_M:
+            setAllNoFuncMode(0);
+            // Color / Strobe DONE in processNoteMidiKeyb
+            setAllPan(0, global_pan);
+            setAllTilt(0, global_tilt);
+            stopMainTimer();
+            break;
         case MODE_GLOB_KEYB_A :   
             setAllNoFuncMode(0);
             // TO DO
@@ -384,6 +404,21 @@ void    seq_nb_glob(uint8_t nb){
         if(mode_global_midi == MODE_GLOB_SEQ){
             setAllGlobalSpots(0);
             setGpeColorSpots(seq[global_seq_nb_cpt+1]);
+
+            // affectation position aleatoire
+            uint8_t nb_choice = rand() % POS_NB;            
+            setAllPan(0, positions[nb_choice*4 + 0]);
+            setAllTilt(0, positions[nb_choice*4 + 1]);
+            setAllPTSpeed(0, positions[nb_choice*4 + 2]);
+
+            // mode strobe
+            for(int kk = 0; kk < MIDI_CH; kk++){
+                uint8_t strobe_on = key_strobe[seq[global_seq_nb_cpt+1]*MIDI_CH + kk];
+                if(strobe_on == 1){
+                    setAllStrobeMode(kk, 0);
+                }
+            }
+
             global_seq_nb_cpt++;
             if(global_seq_nb_cpt == nb_steps)   global_seq_nb_cpt = 0;
         }
@@ -391,6 +426,7 @@ void    seq_nb_glob(uint8_t nb){
 }
 
 void    seq_rgb_glob(void){
+    // TO FINISH
     if(isMainTimer()){
         if(mode_global_midi == MODE_GLOB_SEQ_RGB){
             setAllGlobalSpots(0);
@@ -402,6 +438,12 @@ void    seq_rgb_glob(void){
                     }
                 }
             }
+            
+            // affectation position aleatoire
+            uint8_t nb_choice = rand() % POS_NB;            
+            setAllPan(0, positions[nb_choice*4 + 0]);
+            setAllTilt(0, positions[nb_choice*4 + 1]);
+            setAllPTSpeed(0, positions[nb_choice*4 + 2]);
             seq_rgb_cpt++;
         }
     }
@@ -420,8 +462,8 @@ void    fade_mode_glob(void){
                 c[0] = fade_ramp[((global_seq_nb_cpt + (0 * FADE_STEPS / 3)) + k * FADE_STEPS/MIDI_CH)% FADE_STEPS ];
                 c[1] = fade_ramp[((global_seq_nb_cpt + (1 * FADE_STEPS / 3)) + k * FADE_STEPS/MIDI_CH)% FADE_STEPS ];
                 c[2] = fade_ramp[((global_seq_nb_cpt + (2 * FADE_STEPS / 3)) + k * FADE_STEPS/MIDI_CH)% FADE_STEPS ];
-                uint8_t pan = fade_ramp[((global_seq_nb_cpt + (1 * FADE_STEPS / 3)) + k * FADE_STEPS/MIDI_CH)% FADE_STEPS ];
-                uint8_t tilt = fade_ramp[((global_seq_nb_cpt + (3 * FADE_STEPS / 3)) + k * FADE_STEPS/MIDI_CH)% FADE_STEPS ];
+                uint8_t pan = fade_ramp[global_seq_nb_cpt % FADE_STEPS ];
+                uint8_t tilt = fade_ramp[global_seq_nb_cpt % FADE_STEPS ];
                 // affectation couleurs par groupe
                 setAllColorSpots(k+1, c);
                 if(mode_global_midi == MODE_GLOB_FADE){
