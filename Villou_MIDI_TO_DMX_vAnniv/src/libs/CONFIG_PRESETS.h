@@ -108,6 +108,9 @@ extern      uint8_t     seq1[];
 extern      uint8_t     seq2[];
 extern      uint8_t     seq3[];
 extern      uint8_t     seq4[];
+extern      uint8_t     seq5[];
+extern      uint8_t     seq6[];
+extern      uint8_t     seq7[];
 
 extern      uint8_t     seq_rgb_steps[];
 /* Liste Couleurs PADS */

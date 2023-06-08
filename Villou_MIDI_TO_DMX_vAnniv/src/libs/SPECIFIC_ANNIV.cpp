@@ -22,6 +22,7 @@ void    ANNIV_mode_strobe(uint8_t gpe){
                     break;          
                 case 3: /* SLS-7 */
                     val = 10 + ((global_strobe_speed * 245.0) / 255.0);
+                    printf("V = %d\r\n", val);
                     dmx_data[add + 2 - 1] = val;
                     dmx_data[add + 9 - 1] = 0;
                     dmx_data[add + 10 - 1] = 0;

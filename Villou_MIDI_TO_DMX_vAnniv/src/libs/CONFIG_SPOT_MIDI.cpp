@@ -38,6 +38,9 @@ void    configSpots(void){
                 break;          
             case 4:
                 cpyTab((uint8_t*)spotTMH, spot_, NB_PARAMS);
+                break;     
+            case 5:
+                cpyTab((uint8_t*)spotBAR3, spot_, NB_PARAMS);
                 break;
             default:
                 break;

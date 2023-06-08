@@ -52,5 +52,7 @@ void    seq_rgb_glob(void);
 void    seq_nb_glob(uint8_t nb);
 /* Action sur mode fade */
 void    fade_mode_glob(void);
+/* Mode Keyboard seul */
+void    keyb_alone_glob(void);
 
 #endif

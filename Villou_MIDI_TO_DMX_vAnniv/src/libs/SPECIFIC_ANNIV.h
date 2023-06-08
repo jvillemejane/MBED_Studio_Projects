@@ -12,7 +12,7 @@
 //   / SOUND / SND_VAL_MIN / MAX / FADE_VAL
 const uint8_t spotLEDPARTY[NB_PARAMS] = {1, 6, 2, 3, 4, 5, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0};
 const uint8_t spotRenkLVPT[NB_PARAMS] = {4, 3, 5, 6, 7, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0};
-const uint8_t spotSLS7[NB_PARAMS] = {4, 3, 5, 6, 7, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0};
+const uint8_t spotSLS7[NB_PARAMS] = {1, 2, 3, 4, 5, 6, 7, 8, 2, 0, 0, 0, 0, 10, 130, 255, 10};
 const uint8_t spotTMH[NB_PARAMS] = {4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 12, 129, 255, 2};
 const uint8_t spotBAR3[NB_PARAMS] = {1, 2, 3, 4, 5, 6, 7, 8, 10, 0, 0, 0, 0, 10, 130, 255, 10};
 

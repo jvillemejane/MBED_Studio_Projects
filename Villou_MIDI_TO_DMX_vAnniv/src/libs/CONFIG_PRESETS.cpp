@@ -23,7 +23,7 @@ uint8_t     key_colors[KEY_NB * MIDI_CH] = {
 /*1 */ 0,  0,  0,  0,  COLOR_UV_L,  COLOR_UV_L,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 /*2#*/ 0,  0,  0,  0,  COLOR_N,  COLOR_N,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
        0,  0,  0,  0,  COLOR_UV,  COLOR_UV,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*4#*/ 0,  0,  0,  0,  COLOR_UV_A_D,  COLOR_UV_A_D,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*4#*/ COLOR_W,  COLOR_W,  COLOR_W,  COLOR_W,  COLOR_UV_D,  COLOR_UV_D,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 /*5 */ 0,  0,  0,  0,  COLOR_UV_D,  COLOR_UV_D,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
        COLOR_R,  COLOR_R,  COLOR_R,  COLOR_R,  COLOR_R_L,  COLOR_R_L,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 /*7#*/ COLOR_B,  COLOR_B_L,  COLOR_B_L,  COLOR_B,  COLOR_UV_D,  COLOR_UV_L,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -56,21 +56,21 @@ uint8_t     key_colors[KEY_NB * MIDI_CH] = {
        COLOR_N,  COLOR_GB,  COLOR_GB,  COLOR_G_L,  COLOR_BG,  COLOR_W,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 /*9#*/ COLOR_N,  COLOR_GB,  COLOR_G_L,  COLOR_N,  COLOR_BG,  COLOR_B_L,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
        COLOR_GB,  COLOR_N,  COLOR_N,  COLOR_G_L,  COLOR_BG,  COLOR_W,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*11#*/COLOR_OR,  COLOR_Y,  COLOR_OR,  COLOR_B_L,  COLOR_A,  COLOR_R,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*36*/ COLOR_B_L,  COLOR_OR,  COLOR_B_L,  COLOR_Y,  COLOR_N,  COLOR_R,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*11#*/COLOR_Y,  COLOR_Y,  COLOR_Y,  COLOR_B_L,  COLOR_A,  COLOR_R,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*36*/ COLOR_B_L,  COLOR_Y,  COLOR_B_L,  COLOR_Y,  COLOR_N,  COLOR_R,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 
-/*37 */COLOR_Y,  COLOR_R,  COLOR_R,  COLOR_Y,  COLOR_OR,  COLOR_N,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*2#*/ COLOR_R,  COLOR_OR,  COLOR_OR,  COLOR_R,  COLOR_N,  COLOR_A,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-       COLOR_OR,  COLOR_Y,  COLOR_R,  COLOR_R,  COLOR_A,  COLOR_N,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*4#*/ COLOR_Y,  COLOR_OR,  COLOR_OR,  COLOR_Y,  COLOR_OR,  COLOR_A,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*5 */ COLOR_R,  COLOR_B,  COLOR_R,  COLOR_B,  COLOR_UV,  COLOR_N,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-       COLOR_B,  COLOR_R,  COLOR_B,  COLOR_N,  COLOR_UV,  COLOR_W,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*7#*/ COLOR_N,  COLOR_BR,  COLOR_R,  COLOR_BR,  COLOR_BR, COLOR_N,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-       COLOR_BR, COLOR_R,  COLOR_BR,  COLOR_N,  COLOR_BR,  COLOR_W,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*9#*/ COLOR_Y,  COLOR_RB,  COLOR_Y,  COLOR_RB,  COLOR_W,  COLOR_W,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-       COLOR_RB,  COLOR_N,  COLOR_RB,  COLOR_N,  COLOR_W,  COLOR_W,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*11#*/COLOR_B,  COLOR_RB,  COLOR_B,  COLOR_RB,  COLOR_R,  COLOR_N,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*48*/ COLOR_RB,  COLOR_B,  COLOR_RB,  COLOR_N,  COLOR_R,  COLOR_N,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+/*37 */COLOR_Y,  COLOR_R,  COLOR_R,  COLOR_Y,  COLOR_A,  COLOR_N,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*2#*/ COLOR_R,  COLOR_Y,  COLOR_Y,  COLOR_R,  COLOR_N,  COLOR_A,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+       COLOR_R_L,  COLOR_Y,  COLOR_R,  COLOR_R_L,  COLOR_A,  COLOR_N,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*4#*/ COLOR_Y,  COLOR_R_L,  COLOR_R_L,  COLOR_Y,  COLOR_N,  COLOR_A,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*5 */ COLOR_R,  COLOR_B,  COLOR_R,  COLOR_B,  COLOR_UV,  COLOR_B,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+       COLOR_B,  COLOR_R,  COLOR_B,  COLOR_R,  COLOR_UV,  COLOR_W,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*7#*/ COLOR_R,  COLOR_BR,  COLOR_R,  COLOR_BR,  COLOR_BR, COLOR_R,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+       COLOR_BR, COLOR_R,  COLOR_BR,  COLOR_B,  COLOR_B,  COLOR_W,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*9#*/ COLOR_R,  COLOR_RB,  COLOR_B,  COLOR_RB,  COLOR_RB,  COLOR_B,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+       COLOR_RB,  COLOR_R,  COLOR_RB,  COLOR_B,  COLOR_R,  COLOR_W,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*11#*/COLOR_B,  COLOR_RB,  COLOR_B,  COLOR_RB,  COLOR_B,  COLOR_R,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*48*/ COLOR_RB,  COLOR_B,  COLOR_RB,  COLOR_R,  COLOR_R,  COLOR_B,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 };
 
 /* Strobe mode - gpe */
@@ -110,23 +110,23 @@ uint8_t     key_strobe[KEY_NB*MIDI_CH]{
        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 /*7#*/ 0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
        0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*9#*/ 0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-       0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*11#*/0,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*36*/ 0,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*9#*/ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+       0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*11#*/0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*36*/ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 
 /*37 */0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*2#*/ 0,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*2#*/ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*4#*/ 0,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*4#*/ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 /*5 */ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 /*7#*/ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*9#*/ 0,  0,  0,  0,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-       0,  0,  0,  0,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*11#*/0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-/*48*/ 0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+/*9#*/ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+       0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*11#*/0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+/*48*/ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 };
 
 
@@ -149,6 +149,25 @@ uint8_t     seq3[32+1] = {16,
                 0,  0,  0,  0,  0,  0,  0,  0
             };
 uint8_t     seq4[32+1] = {4, 
+                15,  16,  17,  18,  0,  0,  0,  0,
+                0,  0,  0,  0,  0,  0,  0,  0,
+                0,  0,  0,  0,  0,  0,  0,  0,
+                0,  0,  0,  0,  0,  0,  0,  0
+            };
+
+uint8_t     seq5[32+1] = {4, 
+                41,  42, 43,  44,  41,  42,  43,  44,
+                45,  46,  47,  48,  45,  46,  47,  48,
+                0,  0,  0,  0,  0,  0,  0,  0,
+                0,  0,  0,  0,  0,  0,  0,  0
+            };
+uint8_t     seq6[32+1] = {4, 
+                15,  16,  17,  18,  0,  0,  0,  0,
+                0,  0,  0,  0,  0,  0,  0,  0,
+                0,  0,  0,  0,  0,  0,  0,  0,
+                0,  0,  0,  0,  0,  0,  0,  0
+            };
+uint8_t     seq7[32+1] = {4, 
                 15,  16,  17,  18,  0,  0,  0,  0,
                 0,  0,  0,  0,  0,  0,  0,  0,
                 0,  0,  0,  0,  0,  0,  0,  0,
@@ -224,7 +243,7 @@ void    getColor(uint8_t indice, uint8_t c[]){
             c[COLOR_POS_A] = 0;    c[COLOR_POS_W] = 0;     c[COLOR_POS_UV] = 30;
             break;
         case COLOR_OR:
-            c[COLOR_POS_R] = 255;   c[COLOR_POS_G] = 128;   c[COLOR_POS_B] = 0;
+            c[COLOR_POS_R] = 192;   c[COLOR_POS_G] = 64;   c[COLOR_POS_B] = 0;
             c[COLOR_POS_A] = 0;     c[COLOR_POS_W] = 0;     c[COLOR_POS_UV] = 0;
             break;
         case COLOR_BR:
@@ -236,7 +255,7 @@ void    getColor(uint8_t indice, uint8_t c[]){
             c[COLOR_POS_A] = 0;     c[COLOR_POS_W] = 0;     c[COLOR_POS_UV] = 0;
             break;
         case COLOR_Y:
-            c[COLOR_POS_R] = 192;   c[COLOR_POS_G] = 192;   c[COLOR_POS_B] = 0;
+            c[COLOR_POS_R] = 192;   c[COLOR_POS_G] = 128;   c[COLOR_POS_B] = 0;
             c[COLOR_POS_A] = 0;     c[COLOR_POS_W] = 0;     c[COLOR_POS_UV] = 0;
             break;
         case COLOR_GB:

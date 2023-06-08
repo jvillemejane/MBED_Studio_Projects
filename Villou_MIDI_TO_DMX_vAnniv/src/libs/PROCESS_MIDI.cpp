@@ -23,6 +23,7 @@
 
 /* Action à réaliser / Controleur / Note Midi */
 void    processNoteMidiCtrl(uint8_t chan){
+    double      bpm = 120.0;
     switch(note_data[chan-1]){
         case 48 :   /* Global BLACKOUT */
             mode_global_midi = MODE_GLOB_BLACKOUT;
@@ -73,37 +74,78 @@ void    processNoteMidiCtrl(uint8_t chan){
             mode_global_midi = MODE_GLOB_COL;
             global_color = color_pads[3];
             break;
-        case 56 :   /* Couleur 9 */
+        case 63 :   /* W and UV */
             mode_global_midi = MODE_GLOB_COL;
-            global_color = color_pads[8];
-            break;
-        case 57 :   /* Couleur 10 */
-            mode_global_midi = MODE_GLOB_COL;
-            global_color = color_pads[9];
+            global_color = 4;
             break;
 
         case 44:    /* SEQ1 mode */
             mode_global_midi = MODE_GLOB_SEQ;
             global_seq_nb = 1;
             global_seq_nb_cpt = 0;
+            setMainTimer((int)(bpm));
             startMainTimer();
             break;
         case 45:    /* SEQ2 mode */
             mode_global_midi = MODE_GLOB_SEQ;
             global_seq_nb = 2;
             global_seq_nb_cpt = 0;
+            setMainTimer((int)(bpm));
             startMainTimer();
             break;
         case 46:    /* SEQ3 mode */
             mode_global_midi = MODE_GLOB_SEQ;
             global_seq_nb = 3;
             global_seq_nb_cpt = 0;
+            setMainTimer((int)(bpm));
             startMainTimer();
             break;
         case 47:    /* SEQ4 mode */
             mode_global_midi = MODE_GLOB_SEQ;
             global_seq_nb = 4;
             global_seq_nb_cpt = 0;
+            setMainTimer((int)(bpm));
+            startMainTimer();
+            break;
+
+        case 60 :   /* SEQ5 - 116BPM */
+            mode_global_midi = MODE_GLOB_SEQ;
+            global_seq_nb = 5;
+            global_seq_nb_cpt = 0;
+            bpm = 116;
+            printf("\tBPM=%f \r\n", bpm);
+            bpm = 60.0/bpm*1000;
+            setMainTimer((int)(bpm));
+            startMainTimer();
+            break;
+        case 61 :   /* SEQ6 - 128BPM */
+            mode_global_midi = MODE_GLOB_SEQ;
+            global_seq_nb = 6;
+            global_seq_nb_cpt = 0;
+            bpm = 128;
+            printf("\tBPM=%f \r\n", bpm);
+            bpm = 60.0/bpm*1000;
+            setMainTimer((int)(bpm));
+            startMainTimer();
+            break;
+        case 56 :   /* SEQ7 - 90BPM */
+            mode_global_midi = MODE_GLOB_SEQ;
+            global_seq_nb = 7;
+            global_seq_nb_cpt = 0;            
+            bpm = 90;
+            printf("\tBPM=%f \r\n", bpm);
+            bpm = 60.0/bpm*1000;
+            setMainTimer((int)(bpm));
+            startMainTimer();
+            break;
+        case 57 :   /* SEQ8 - 64BPM */
+            mode_global_midi = MODE_GLOB_SEQ;
+            global_seq_nb = 8;
+            global_seq_nb_cpt = 0;            
+            bpm = 64;
+            printf("\tBPM=%f \r\n", bpm);
+            bpm = 60.0/bpm*1000;
+            setMainTimer((int)(bpm));
             startMainTimer();
             break;
 
@@ -151,9 +193,19 @@ void    processNoteMidiCtrl(uint8_t chan){
 void    processNoteMidiKeyb(uint8_t chan){
     uint8_t note = note_data[chan-1];
     if(mode_global_midi == MODE_GLOB_KEYB_A){
-        uint8_t c[6];
-        // Modif Couleurs c[]
-        setAllColorSpots(0, c);
+        setAllGlobalSpots(0);
+        uint8_t     c[6];
+        c[3] = 0;
+        c[4] = 0;
+        c[5] = 0;
+        for(int k = 0; k < MIDI_CH; k++){   // parcourt des 16 groupes de spots
+            // choix couleurs
+            c[0] = fade_ramp[((note + (0 * KEY_NB / 3)) + k * KEY_NB/MIDI_CH)% KEY_NB ];
+            c[1] = fade_ramp[((note + (1 * KEY_NB / 3)) + k * KEY_NB/MIDI_CH)% KEY_NB ];
+            c[2] = fade_ramp[((note + (2 * KEY_NB / 3)) + k * KEY_NB/MIDI_CH)% KEY_NB ];
+            // affectation couleurs par groupe
+            setAllColorSpots(k+1, c);
+        }
     }
     if(mode_global_midi == MODE_GLOB_KEYB_M){
         note = note % KEY_NB;
@@ -169,7 +221,6 @@ void    processNoteMidiKeyb(uint8_t chan){
                 setAllNoFuncMode(kk);
             }
         }
-
     }
 }
 /* Action à réaliser / Séquenceur / Note Midi */
@@ -222,6 +273,14 @@ void    processCCMidiCtrl(uint8_t chan){
                     break;
                 case MODE_GLOB_SEQ :
                     bpm = (((double)global_delta + 1)/2.0 + 70);
+                    if(global_seq_nb == 5)
+                        bpm = 116;
+                    if(global_seq_nb == 6)
+                        bpm = 128;
+                    if(global_seq_nb == 7)
+                        bpm = 90;
+                    if(global_seq_nb == 8)
+                        bpm = 64;
                     if(DEBUG_MODE)  printf("\tBPM=%f \r\n", bpm);
                     printf("\tBPM=%f \r\n", bpm);
                     bpm = 60.0/bpm*1000;
@@ -300,14 +359,28 @@ void    processAllTime(void){
             stopMainTimer();
             break;
         case MODE_GLOB_STROBE :
-            setAllSpeedStrobeSpots(0, global_strobe_speed);
-            setAllDimmerSpots(0, global_dimmer);
-            setAllRSpots(0, global_r);
-            setAllGSpots(0, global_g);
-            setAllBSpots(0, global_b);
-            setAllASpots(0, global_a);
-            setAllWSpots(0, global_w);
-            setAllUVSpots(0, global_uv);
+            setAllNoFuncMode(1);   
+            setAllNoFuncMode(2);   
+            setAllNoFuncMode(3);   
+            setAllNoFuncMode(4);  
+            getColor(COLOR_N, c); 
+            setAllColorSpots(0, c);
+            setAllSpeedStrobeSpots(5, global_strobe_speed);
+            setAllSpeedStrobeSpots(6, global_strobe_speed);
+            setAllDimmerSpots(5, global_dimmer);
+            setAllDimmerSpots(6, global_dimmer);
+            setAllRSpots(5, global_r);
+            setAllGSpots(5, global_g);
+            setAllBSpots(5, global_b);
+            setAllASpots(5, global_a);
+            setAllWSpots(5, global_w);
+            setAllUVSpots(5, global_uv);
+            setAllRSpots(6, global_r);
+            setAllGSpots(6, global_g);
+            setAllBSpots(6, global_b);
+            setAllASpots(6, global_a);
+            setAllWSpots(6, global_w);
+            setAllUVSpots(6, global_uv);
             setAllPan(0, global_pan);
             setAllTilt(0, global_tilt);
             setAllPTSpeed(0, global_pt_speed);
@@ -348,13 +421,15 @@ void    processAllTime(void){
         case MODE_GLOB_KEYB_M:
             setAllNoFuncMode(0);
             // Color / Strobe DONE in processNoteMidiKeyb
+            setAllDimmerSpots(0, global_dimmer);
             setAllPan(0, global_pan);
             setAllTilt(0, global_tilt);
             stopMainTimer();
             break;
         case MODE_GLOB_KEYB_A :   
             setAllNoFuncMode(0);
-            // TO DO
+            // Color DONE in processNoteMidiKeyb
+            setAllDimmerSpots(0, global_dimmer);
             setAllPan(0, global_pan);
             setAllTilt(0, global_tilt);
             stopMainTimer();
@@ -383,19 +458,22 @@ void    processAllTime(void){
 
 void    seq_nb_glob(uint8_t nb){
     uint8_t seq[33];
-
     if(isMainTimer()){
         switch(nb){
-            case 1:
+            case 1: /* SEQ 1 */
+            case 6: /* SEQ 6 - 128 BPM */
+            case 8: /* SEQ 8 - 64 BPM */
                 cpyTab(seq1, seq, 33);
                 break;
             case 2:
                 cpyTab(seq2, seq, 33);
                 break;
-            case 3:
+            case 5: /* SEQ 5 - 116 BPM */
+            case 3: /* SEQ 3 */
                 cpyTab(seq3, seq, 33);
                 break;
-            case 4:
+            case 4: /* SEQ 4 */
+            case 7: /* SEQ 7 - 90 PBM */
             default:
                 cpyTab(seq4, seq, 33);
                 break;
@@ -413,9 +491,12 @@ void    seq_nb_glob(uint8_t nb){
 
             // mode strobe
             for(int kk = 0; kk < MIDI_CH; kk++){
-                uint8_t strobe_on = key_strobe[seq[global_seq_nb_cpt+1]*MIDI_CH + kk];
+                uint8_t strobe_on = key_strobe[seq[global_seq_nb_cpt]*MIDI_CH + kk];
                 if(strobe_on == 1){
-                    setAllStrobeMode(kk, 0);
+                    setAllStrobeMode(kk+1, 0);
+                }
+                else{
+                    setAllNoFuncMode(kk+1);
                 }
             }
 
