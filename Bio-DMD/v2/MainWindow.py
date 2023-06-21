@@ -89,7 +89,7 @@ class MainWidget(QWidget):
         # Initialisation of the BlackLevel setting
         self.cameraSettingsWidget.blackLevel.slider.setMinimum(1)
         self.cameraSettingsWidget.blackLevel.slider.setMaximum(256)
-        self.cameraSettingsWidget.blackLevel.setValue(int(self.cameraWidget.camera.get_black_level())) # camera's blacklevel
+        #         self.cameraSettingsWidget.blackLevel.setValue(int(self.cameraWidget.camera.get_black_level())) # camera's blacklevel
 
         self.cameraSettingsWidget.blackLevel.slider.valueChanged.connect(
             lambda : self.cameraWidget.camera.set_black_level(self.cameraSettingsWidget.blackLevel.getValue()))
