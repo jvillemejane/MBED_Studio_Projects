@@ -51,9 +51,6 @@ int main()
     initUSBLink();
     initPiezo();
 
-    sprintf(transmitData, "Test\n\r");
-    myLink.write(transmitData, strlen(transmitData));
-
     while (true)
     {
         if(isDataReady() == true){
